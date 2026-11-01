@@ -1,0 +1,686 @@
+{
+  "@context": [
+    "atlas-core.jsonld",
+    "atlas-common.jsonld",
+    {
+      "mcdonalds": "urn:atlas:ontology:mcdonalds:"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "urn:atlas:ontology:mcdonalds",
+      "@type": "owl:Ontology",
+      "rdfs:label": "mcdonalds Library",
+      "rdfs:comment": "McDonald's Arkansas field-service model: the enterprise, its territories (regions) and restaurants, and the store equipment the simulator reports on (walk-in cooler, walk-in freezer, rooftop HVAC, backup generator, soft serve machine) with live state and reading signals, state code lists matching the simulator, and a Healthy/Warning/Danger classifier. Store and territory records come from the mcdonalds_ar Postgres database; signals from the Historian dataset McDonalds."
+    },
+    {
+      "@id": "mcdonalds:Address",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Address",
+      "rdfs:comment": "Street address.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:City",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "City",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth",
+      "@type": "fno:Function",
+      "rdfs:label": "Classify Health",
+      "rdfs:comment": "Bands a live reading: 0 Healthy below healthyThreshold, 1 Warning below dangerThreshold, 2 Danger at or above it. Keeps the input timestamp and quality.",
+      "fno:expects": {
+        "@list": [{"@id": "mcdonalds:ClassifyHealth/param/value"}, {"@id": "mcdonalds:ClassifyHealth/param/healthyThreshold"}, {"@id": "mcdonalds:ClassifyHealth/param/dangerThreshold"}]
+      },
+      "fno:returns": {
+        "@list": [{"@id": "mcdonalds:ClassifyHealth/output/status"}]
+      }
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth/impl",
+      "@type": "atlas:CSharpFunctionImplementation",
+      "body": "if (value.Value == null) return new TVQ(value.Timestamp, null, 0);\ndouble v = System.Convert.ToDouble(value.Value);\nif (v < healthyThreshold) return new TVQ(value.Timestamp, 0, value.Quality);\nif (v < dangerThreshold) return new TVQ(value.Timestamp, 1, value.Quality);\nreturn new TVQ(value.Timestamp, 2, value.Quality);"
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth/mapping",
+      "@type": "fno:Mapping",
+      "fno:function": {"@id": "mcdonalds:ClassifyHealth"},
+      "fno:implementation": {"@id": "mcdonalds:ClassifyHealth/impl"}
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth/output/status",
+      "@type": "fno:Output",
+      "fno:predicate": {"@id": "mcdonalds:output/status"},
+      "fno:type": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth/param/dangerThreshold",
+      "@type": "fno:Parameter",
+      "fno:predicate": {"@id": "mcdonalds:param/dangerThreshold"},
+      "fno:required": true,
+      "fno:type": {"@id": "xsd:double"}
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth/param/healthyThreshold",
+      "@type": "fno:Parameter",
+      "fno:predicate": {"@id": "mcdonalds:param/healthyThreshold"},
+      "fno:required": true,
+      "fno:type": {"@id": "xsd:double"}
+    },
+    {
+      "@id": "mcdonalds:ClassifyHealth/param/value",
+      "@type": "fno:Parameter",
+      "fno:predicate": {"@id": "mcdonalds:param/value"},
+      "fno:required": true,
+      "fno:type": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:Cooler",
+      "@type": "owl:Class",
+      "rdfs:label": "Walk-in Cooler",
+      "rdfs:comment": "Walk-in cooler holding refrigerated product above freezing. Healthy below 41 °F, Danger at 45 °F and above.",
+      "rdfs:subClassOf": {"@id": "mcdonalds:RefrigeratedUnit"}
+    },
+    {
+      "@id": "mcdonalds:County",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "County",
+      "rdfs:comment": "County name, e.g. Pulaski County.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:DriveThruHours",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "DriveThruHours",
+      "rdfs:comment": "Drive-thru hours as published; empty where none is published.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:Enterprise",
+      "@type": "owl:Class",
+      "rdfs:label": "Enterprise",
+      "rdfs:comment": "The operating organisation at the top of the hierarchy (McDonald's Arkansas). Contains territories.",
+      "rdfs:subClassOf": [
+        {"@id": "atlas:NodeBase"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Name"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "mcdonalds:Freezer",
+      "@type": "owl:Class",
+      "rdfs:label": "Walk-in Freezer",
+      "rdfs:comment": "Walk-in freezer holding frozen product. Healthy below 0 °F, Danger at 10 °F and above.",
+      "rdfs:subClassOf": {"@id": "mcdonalds:RefrigeratedUnit"}
+    },
+    {
+      "@id": "mcdonalds:Generator",
+      "@type": "owl:Class",
+      "rdfs:label": "Backup Generator",
+      "rdfs:comment": "Standby generator for utility outages; exercised on a schedule. Load healthy below 80 %, Danger at 90 % and above.",
+      "rdfs:subClassOf": [
+        {"@id": "mcdonalds:StoreEquipment"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:GeneratorState"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:LoadPercent"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:LoadPercentHealth"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "mcdonalds:GeneratorState",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "GeneratorState",
+      "rdfs:comment": "Live state from <StoreId>.Generator.State.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:GeneratorStateEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "Generator State",
+      "rdfs:comment": "State codes written by the simulator for backup generators (tag <Store>.Generator.State).",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:integer",
+      "enumMembers": [
+        {"rdfs:label": "Standby", "enumKey": 0, "enumName": "Standby"},
+        {"rdfs:label": "Exercise Run - Scheduled", "enumKey": 10, "enumName": "ExerciseRunScheduled"},
+        {"rdfs:label": "Unplanned Run - Possible Power Outage", "enumKey": 30, "enumName": "UnplannedRunPossiblePowerOutage"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:HVACState",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "HVACState",
+      "rdfs:comment": "Live state from <StoreId>.HVAC.State.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:HVACStateEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "HVAC State",
+      "rdfs:comment": "State codes written by the simulator for rooftop HVAC units (tag <Store>.HVAC.State). 40-42 are faults.",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:integer",
+      "enumMembers": [
+        {"rdfs:label": "Off - Unoccupied", "enumKey": 0, "enumName": "OffUnoccupied"},
+        {"rdfs:label": "Startup", "enumKey": 10, "enumName": "Startup"},
+        {"rdfs:label": "Cooling - Occupied", "enumKey": 20, "enumName": "CoolingOccupied"},
+        {"rdfs:label": "Economizer", "enumKey": 21, "enumName": "Economizer"},
+        {"rdfs:label": "Fan Only", "enumKey": 22, "enumName": "FanOnly"},
+        {"rdfs:label": "Setback", "enumKey": 30, "enumName": "Setback"},
+        {"rdfs:label": "Fault - Airflow/Filter", "enumKey": 40, "enumName": "FaultAirflowFilter"},
+        {"rdfs:label": "Fault - Compressor/Condenser", "enumKey": 41, "enumName": "FaultCompressorCondenser"},
+        {"rdfs:label": "Fault - Thermostat/Sensor", "enumKey": 42, "enumName": "FaultThermostatSensor"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:HVACUnit",
+      "@type": "owl:Class",
+      "rdfs:label": "Rooftop HVAC Unit",
+      "rdfs:comment": "Rooftop HVAC unit conditioning the dining and kitchen space. Supply air healthy below 72 °F, Danger at 80 °F and above.",
+      "rdfs:subClassOf": [
+        {"@id": "mcdonalds:StoreEquipment"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:HVACState"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:SupplyAirTemperature"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:SupplyAirTemperatureHealth"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "mcdonalds:HasDelivery",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "HasDelivery",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:HasDriveThru",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "HasDriveThru",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:HasKiosk",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "HasKiosk",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:HasMobileOrdering",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "HasMobileOrdering",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:HasPlayPlace",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "HasPlayPlace",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:HealthStatusEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "Health Status",
+      "rdfs:comment": "Risk band for a live analog reading, produced by ClassifyHealth.",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:integer",
+      "enumMembers": [
+        {"rdfs:label": "Healthy", "enumKey": 0, "enumName": "Healthy"},
+        {"rdfs:label": "Warning", "enumKey": 1, "enumName": "Warning"},
+        {"rdfs:label": "Danger", "enumKey": 2, "enumName": "Danger"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:Is24Hour",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Is24Hour",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:IsOpen",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "IsOpen",
+      "rdfs:comment": "True when the operating status is Active.",
+      "rdfs:range": {"@id": "xsd:boolean"}
+    },
+    {
+      "@id": "mcdonalds:Latitude",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Latitude",
+      "rdfs:comment": "WGS84 decimal degrees.",
+      "rdfs:range": {"@id": "xsd:double"}
+    },
+    {
+      "@id": "mcdonalds:LoadPercent",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "LoadPercent",
+      "rdfs:comment": "Generator load in % from <StoreId>.Generator.LoadPercent.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:LoadPercentHealth",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "LoadPercentHealth",
+      "rdfs:comment": "ClassifyHealth of LoadPercent (healthy < 80, danger >= 90).",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:LocationType",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "LocationType",
+      "rdfs:range": {"@id": "xsd:string"},
+      "enumType": "mcdonalds:LocationTypeEnum"
+    },
+    {
+      "@id": "mcdonalds:LocationTypeEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "Location Type",
+      "rdfs:comment": "Kind of site the restaurant occupies; keys are ref.location_type codes in mcdonalds_ar.",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:string",
+      "enumMembers": [
+        {"rdfs:label": "Freestanding", "enumKey": "FREESTANDING", "enumName": "Freestanding"},
+        {"rdfs:label": "Gas Station", "enumKey": "GAS_STATION", "enumName": "GasStation"},
+        {"rdfs:label": "Wal*Mart", "enumKey": "WALMART", "enumName": "Walmart"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:Longitude",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Longitude",
+      "rdfs:comment": "WGS84 decimal degrees.",
+      "rdfs:range": {"@id": "xsd:double"}
+    },
+    {
+      "@id": "mcdonalds:Name",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Name",
+      "rdfs:comment": "Display name.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:OperatingStatus",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "OperatingStatus",
+      "rdfs:range": {"@id": "xsd:string"},
+      "enumType": "mcdonalds:OperatingStatusEnum"
+    },
+    {
+      "@id": "mcdonalds:OperatingStatusEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "Operating Status",
+      "rdfs:comment": "Restaurant operating status; keys are ref.operating_status codes in mcdonalds_ar.",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:string",
+      "enumMembers": [
+        {"rdfs:label": "Active", "enumKey": "ACTIVE", "enumName": "Active"},
+        {"rdfs:label": "Temporarily Closed", "enumKey": "TEMP_CLOSED", "enumName": "TemporarilyClosed"},
+        {"rdfs:label": "Closed", "enumKey": "CLOSED", "enumName": "Closed"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:Phone",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Phone",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:RefrigeratedUnit",
+      "@type": "owl:Class",
+      "rdfs:label": "Refrigerated Unit",
+      "rdfs:comment": "A walk-in refrigerated box: shares the refrigeration state codes and a box temperature.",
+      "rdfs:subClassOf": [
+        {"@id": "mcdonalds:StoreEquipment"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:RefrigerationState"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Temperature"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:TemperatureHealth"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ],
+      "isAbstract": true
+    },
+    {
+      "@id": "mcdonalds:RefrigerationState",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "RefrigerationState",
+      "rdfs:comment": "Live state from <StoreId>.Cooler.State / .Freezer.State.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:RefrigerationStateEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "Refrigeration State",
+      "rdfs:comment": "State codes written by the simulator for walk-in coolers and freezers (tag <Store>.Cooler.State / .Freezer.State). 40-43 are faults.",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:integer",
+      "enumMembers": [
+        {"rdfs:label": "Off Cycle", "enumKey": 0, "enumName": "OffCycle"},
+        {"rdfs:label": "Cooling", "enumKey": 10, "enumName": "Cooling"},
+        {"rdfs:label": "Holding", "enumKey": 20, "enumName": "Holding"},
+        {"rdfs:label": "Door Open", "enumKey": 21, "enumName": "DoorOpen"},
+        {"rdfs:label": "Stocking", "enumKey": 22, "enumName": "Stocking"},
+        {"rdfs:label": "Defrost", "enumKey": 30, "enumName": "Defrost"},
+        {"rdfs:label": "Fault - Door/Seal", "enumKey": 40, "enumName": "FaultDoorSeal"},
+        {"rdfs:label": "Fault - Compressor", "enumKey": 41, "enumName": "FaultCompressor"},
+        {"rdfs:label": "Fault - Temperature Sensor", "enumKey": 42, "enumName": "FaultTemperatureSensor"},
+        {"rdfs:label": "Fault - Evaporator Fan", "enumKey": 43, "enumName": "FaultEvaporatorFan"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:RestaurantHours",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "RestaurantHours",
+      "rdfs:comment": "Lobby hours as published, e.g. '05:00-23:00', '24/7' or a per-day schedule.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:RestaurantName",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "RestaurantName",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:SoftServeMachine",
+      "@type": "owl:Class",
+      "rdfs:label": "Soft Serve Machine",
+      "rdfs:comment": "Soft serve / shake machine; reports a state only (operational, heat treat, mix low, needs service).",
+      "rdfs:subClassOf": [
+        {"@id": "mcdonalds:StoreEquipment"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:SoftServeState"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "mcdonalds:SoftServeState",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "SoftServeState",
+      "rdfs:comment": "Live state from <StoreId>.SoftServe.State.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:SoftServeStateEnum",
+      "@type": "owl:Class",
+      "rdfs:label": "Soft Serve State",
+      "rdfs:comment": "State codes written by the simulator for soft serve machines (tag <Store>.SoftServe.State). 40 is a fault.",
+      "rdfs:subClassOf": [{"@id": "atlas:NodeBase"}, {"@id": "atlas:EnumerationType"}],
+      "enumKeyType": "xsd:integer",
+      "enumMembers": [
+        {"rdfs:label": "Operational", "enumKey": 0, "enumName": "Operational"},
+        {"rdfs:label": "Heat Treat Cycle", "enumKey": 10, "enumName": "HeatTreatCycle"},
+        {"rdfs:label": "Mix Low", "enumKey": 20, "enumName": "MixLow"},
+        {"rdfs:label": "Fault - Needs Service", "enumKey": 40, "enumName": "FaultNeedsService"}
+      ]
+    },
+    {
+      "@id": "mcdonalds:State",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "State",
+      "rdfs:comment": "Two-letter state code.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:Store",
+      "@type": "owl:Class",
+      "rdfs:label": "Store",
+      "rdfs:comment": "A single McDonald's restaurant location. Contains the store equipment that reports live signals.",
+      "rdfs:subClassOf": [
+        {"@id": "atlas:NodeBase"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:StoreId"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:StoreNumber"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:RestaurantName"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Address"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:City"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:State"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Zip"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:County"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Latitude"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Longitude"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Phone"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:OperatingStatus"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:IsOpen"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:LocationType"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:RestaurantHours"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:DriveThruHours"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Is24Hour"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:HasDriveThru"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:HasMobileOrdering"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:HasDelivery"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:HasKiosk"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:HasPlayPlace"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "mcdonalds:StoreEquipment",
+      "@type": "owl:Class",
+      "rdfs:label": "Store Equipment",
+      "rdfs:comment": "A maintainable piece of equipment installed at a store and reporting to the Historian dataset McDonalds under tag prefix <StoreId>.<class>.",
+      "rdfs:subClassOf": [
+        {"@id": "atlas:NodeBase"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:StoreId"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ],
+      "isAbstract": true
+    },
+    {
+      "@id": "mcdonalds:StoreId",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "StoreId",
+      "rdfs:comment": "Store business key, e.g. AR-20031. Also the Historian tag prefix. On equipment, the store it is installed in.",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:StoreNumber",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "StoreNumber",
+      "rdfs:comment": "Numeric part of the store ID, e.g. 20031.",
+      "rdfs:range": {"@id": "xsd:integer"}
+    },
+    {
+      "@id": "mcdonalds:SupplyAirTemperature",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "SupplyAirTemperature",
+      "rdfs:comment": "Supply air temperature in °F from <StoreId>.HVAC.SupplyAirTemperature.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:SupplyAirTemperatureHealth",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "SupplyAirTemperatureHealth",
+      "rdfs:comment": "ClassifyHealth of SupplyAirTemperature (healthy < 72, danger >= 80).",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:Temperature",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "Temperature",
+      "rdfs:comment": "Box temperature in °F from <StoreId>.Cooler.Temperature / .Freezer.Temperature.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:TemperatureHealth",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "TemperatureHealth",
+      "rdfs:comment": "ClassifyHealth of Temperature against the unit's thresholds.",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    },
+    {
+      "@id": "mcdonalds:Territory",
+      "@type": "owl:Class",
+      "rdfs:label": "Territory",
+      "rdfs:comment": "A named geographic sales/service region grouping restaurants for route planning (e.g. 'Central Arkansas'). Contains stores.",
+      "rdfs:subClassOf": [
+        {"@id": "atlas:NodeBase"},
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:Name"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:TerritoryId"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        }
+      ]
+    },
+    {
+      "@id": "mcdonalds:TerritoryId",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "TerritoryId",
+      "rdfs:comment": "Business key, e.g. territory-central-arkansas (org.territory.territory_id).",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:Zip",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "Zip",
+      "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:param/dangerThreshold",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "dangerThreshold",
+      "rdfs:range": {"@id": "xsd:double"}
+    },
+    {
+      "@id": "mcdonalds:param/healthyThreshold",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": "healthyThreshold",
+      "rdfs:range": {"@id": "xsd:double"}
+    },
+    {
+      "@id": "mcdonalds:param/value",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "value",
+      "rdfs:range": {"@id": "atlas-common:TVQ"}
+    }
+  ]
+}

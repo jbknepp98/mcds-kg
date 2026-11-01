@@ -1,0 +1,363 @@
+[
+  {
+    "id": "enterprise",
+    "name": "Enterprise",
+    "type": "urn:atlas:ontology:mcdonalds:Enterprise",
+    "instanceId": "McDonalds-AR",
+    "label": "McDonald\u0027s Arkansas",
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "McDonald\u0027s Arkansas"
+        }
+      ]
+    }
+  },
+  {
+    "id": "territories",
+    "name": "Territories",
+    "type": "urn:atlas:ontology:mcdonalds:Territory",
+    "instanceId": "[T]",
+    "label": "[Tn]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Territories"
+      }
+    },
+    "map": [
+      {
+        "name": "T",
+        "data": "[p.territory_id]",
+        "wrap": false
+      },
+      {
+        "name": "Tn",
+        "data": "[p.name]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:TerritoryId": [
+        {
+          "type": "StaticStrategy",
+          "value": "[T]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Tn]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "enterprise-contains-territory",
+    "name": "Enterprise contains Territory",
+    "type": "urn:atlas:ontology:atlas-common:contains",
+    "instanceId": "contains-McDonalds-AR-[T]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Territories"
+      }
+    },
+    "map": [
+      {
+        "name": "T",
+        "data": "[p.territory_id]",
+        "wrap": false
+      }
+    ],
+    "source": "McDonalds-AR",
+    "target": "[T]"
+  },
+  {
+    "id": "stores",
+    "name": "Stores",
+    "type": "urn:atlas:ontology:mcdonalds:Store",
+    "instanceId": "[S]",
+    "label": "[Dn]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Stores"
+      }
+    },
+    "map": [
+      {
+        "name": "S",
+        "data": "[p.store_id]",
+        "wrap": false
+      },
+      {
+        "name": "N",
+        "data": "[p.store_number]",
+        "wrap": false
+      },
+      {
+        "name": "Dn",
+        "data": "[p.display_name]",
+        "wrap": false
+      },
+      {
+        "name": "Rn",
+        "data": "[p.restaurant_name]",
+        "wrap": false
+      },
+      {
+        "name": "Ad",
+        "data": "[p.address]",
+        "wrap": false
+      },
+      {
+        "name": "Ci",
+        "data": "[p.city]",
+        "wrap": false
+      },
+      {
+        "name": "St",
+        "data": "[p.state_code]",
+        "wrap": false
+      },
+      {
+        "name": "Z",
+        "data": "[p.zip]",
+        "wrap": false
+      },
+      {
+        "name": "Co",
+        "data": "[p.county_name]",
+        "wrap": false
+      },
+      {
+        "name": "Lat",
+        "data": "[p.latitude]",
+        "wrap": false
+      },
+      {
+        "name": "Lon",
+        "data": "[p.longitude]",
+        "wrap": false
+      },
+      {
+        "name": "Ph",
+        "data": "[p.phone]",
+        "wrap": false
+      },
+      {
+        "name": "Os",
+        "data": "[p.operating_status_code]",
+        "wrap": false
+      },
+      {
+        "name": "Op",
+        "data": "[p.is_open]",
+        "wrap": false
+      },
+      {
+        "name": "Lt",
+        "data": "[p.location_type_code]",
+        "wrap": false
+      },
+      {
+        "name": "Rh",
+        "data": "[p.restaurant_hours]",
+        "wrap": false
+      },
+      {
+        "name": "Dh",
+        "data": "[p.drive_thru_hours]",
+        "wrap": false
+      },
+      {
+        "name": "H24",
+        "data": "[p.is_24_hour]",
+        "wrap": false
+      },
+      {
+        "name": "Dt",
+        "data": "[p.has_drive_thru]",
+        "wrap": false
+      },
+      {
+        "name": "Mo",
+        "data": "[p.has_mobile_ordering]",
+        "wrap": false
+      },
+      {
+        "name": "De",
+        "data": "[p.has_delivery]",
+        "wrap": false
+      },
+      {
+        "name": "Ki",
+        "data": "[p.has_kiosk]",
+        "wrap": false
+      },
+      {
+        "name": "Pp",
+        "data": "[p.has_play_place]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:StoreId": [
+        {
+          "type": "StaticStrategy",
+          "value": "[S]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:StoreNumber": [
+        {
+          "type": "StaticStrategy",
+          "value": "[N]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:RestaurantName": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Rn]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Address": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ad]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:City": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ci]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:State": [
+        {
+          "type": "StaticStrategy",
+          "value": "[St]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Zip": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Z]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:County": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Co]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Latitude": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Lat]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Longitude": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Lon]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Phone": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ph]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:OperatingStatus": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Os]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:IsOpen": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Op]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:LocationType": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Lt]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:RestaurantHours": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Rh]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DriveThruHours": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Dh]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Is24Hour": [
+        {
+          "type": "StaticStrategy",
+          "value": "[H24]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HasDriveThru": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Dt]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HasMobileOrdering": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Mo]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HasDelivery": [
+        {
+          "type": "StaticStrategy",
+          "value": "[De]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HasKiosk": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ki]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HasPlayPlace": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Pp]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "territory-contains-store",
+    "name": "Territory contains Store",
+    "type": "urn:atlas:ontology:atlas-common:contains",
+    "instanceId": "contains-[T]-[S]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Stores"
+      }
+    },
+    "map": [
+      {
+        "name": "S",
+        "data": "[p.store_id]",
+        "wrap": false
+      },
+      {
+        "name": "T",
+        "data": "[p.territory_id]",
+        "wrap": false
+      }
+    ],
+    "source": "[T]",
+    "target": "[S]"
+  }
+]

@@ -1,0 +1,733 @@
+[
+ {
+  "fileName": "organization.map.json",
+  "id": "enterprise",
+  "name": "Enterprise",
+  "type": "urn:atlas:ontology:mcdonalds:Enterprise",
+  "instanceId": "McDonalds-AR",
+  "label": "McDonald's Arkansas",
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:Name": [
+    {
+     "type": "StaticStrategy",
+     "value": "McDonald's Arkansas"
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "organization.map.json",
+  "id": "territories",
+  "name": "Territories",
+  "type": "urn:atlas:ontology:mcdonalds:Territory",
+  "instanceId": "[T]",
+  "label": "[Tn]",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Territories"
+   }
+  },
+  "map": [
+   {
+    "name": "T",
+    "data": "[p.territory_id]"
+   },
+   {
+    "name": "Tn",
+    "data": "[p.name]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:TerritoryId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[T]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Name": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Tn]"
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "organization.map.json",
+  "id": "enterprise-contains-territory",
+  "name": "Enterprise contains Territory",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-McDonalds-AR-[T]",
+  "source": "McDonalds-AR",
+  "target": "[T]",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Territories"
+   }
+  },
+  "map": [
+   {
+    "name": "T",
+    "data": "[p.territory_id]"
+   }
+  ]
+ },
+ {
+  "fileName": "organization.map.json",
+  "id": "stores",
+  "name": "Stores",
+  "type": "urn:atlas:ontology:mcdonalds:Store",
+  "instanceId": "[S]",
+  "label": "[Dn]",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   },
+   {
+    "name": "N",
+    "data": "[p.store_number]"
+   },
+   {
+    "name": "Dn",
+    "data": "[p.display_name]"
+   },
+   {
+    "name": "Rn",
+    "data": "[p.restaurant_name]"
+   },
+   {
+    "name": "Ad",
+    "data": "[p.address]"
+   },
+   {
+    "name": "Ci",
+    "data": "[p.city]"
+   },
+   {
+    "name": "St",
+    "data": "[p.state_code]"
+   },
+   {
+    "name": "Z",
+    "data": "[p.zip]"
+   },
+   {
+    "name": "Co",
+    "data": "[p.county_name]"
+   },
+   {
+    "name": "Lat",
+    "data": "[p.latitude]"
+   },
+   {
+    "name": "Lon",
+    "data": "[p.longitude]"
+   },
+   {
+    "name": "Ph",
+    "data": "[p.phone]"
+   },
+   {
+    "name": "Os",
+    "data": "[p.operating_status_code]"
+   },
+   {
+    "name": "Op",
+    "data": "[p.is_open]"
+   },
+   {
+    "name": "Lt",
+    "data": "[p.location_type_code]"
+   },
+   {
+    "name": "Rh",
+    "data": "[p.restaurant_hours]"
+   },
+   {
+    "name": "Dh",
+    "data": "[p.drive_thru_hours]"
+   },
+   {
+    "name": "H24",
+    "data": "[p.is_24_hour]"
+   },
+   {
+    "name": "Dt",
+    "data": "[p.has_drive_thru]"
+   },
+   {
+    "name": "Mo",
+    "data": "[p.has_mobile_ordering]"
+   },
+   {
+    "name": "De",
+    "data": "[p.has_delivery]"
+   },
+   {
+    "name": "Ki",
+    "data": "[p.has_kiosk]"
+   },
+   {
+    "name": "Pp",
+    "data": "[p.has_play_place]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:StoreId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[S]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:StoreNumber": [
+    {
+     "type": "StaticStrategy",
+     "value": "[N]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:RestaurantName": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Rn]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Address": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Ad]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:City": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Ci]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:State": [
+    {
+     "type": "StaticStrategy",
+     "value": "[St]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Zip": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Z]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:County": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Co]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Latitude": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Lat]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Longitude": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Lon]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Phone": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Ph]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:OperatingStatus": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Os]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:IsOpen": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Op]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:LocationType": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Lt]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:RestaurantHours": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Rh]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:DriveThruHours": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Dh]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Is24Hour": [
+    {
+     "type": "StaticStrategy",
+     "value": "[H24]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:HasDriveThru": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Dt]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:HasMobileOrdering": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Mo]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:HasDelivery": [
+    {
+     "type": "StaticStrategy",
+     "value": "[De]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:HasKiosk": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Ki]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:HasPlayPlace": [
+    {
+     "type": "StaticStrategy",
+     "value": "[Pp]"
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "organization.map.json",
+  "id": "territory-contains-store",
+  "name": "Territory contains Store",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-[T]-[S]",
+  "source": "[T]",
+  "target": "[S]",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   },
+   {
+    "name": "T",
+    "data": "[p.territory_id]"
+   }
+  ]
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-cooler",
+  "name": "Store Walk-in Coolers",
+  "type": "urn:atlas:ontology:mcdonalds:Cooler",
+  "instanceId": "[S]-Cooler",
+  "label": "Walk-in Cooler",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:StoreId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[S]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:RefrigerationState": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].Cooler.State"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Temperature": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].Cooler.Temperature"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:TemperatureHealth": [
+    {
+     "type": "CalculatedStrategy",
+     "functionUri": "urn:atlas:ontology:mcdonalds:ClassifyHealth",
+     "arguments": [
+      {
+       "type": "propertyRef",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/value",
+       "propertyUri": "urn:atlas:ontology:mcdonalds:Temperature",
+       "order": 0
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/healthyThreshold",
+       "value": "41",
+       "order": 1
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/dangerThreshold",
+       "value": "45",
+       "order": 2
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-contains-cooler",
+  "name": "Store contains Walk-in Cooler",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-[S]-Cooler",
+  "source": "[S]",
+  "target": "[S]-Cooler",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ]
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-freezer",
+  "name": "Store Walk-in Freezers",
+  "type": "urn:atlas:ontology:mcdonalds:Freezer",
+  "instanceId": "[S]-Freezer",
+  "label": "Walk-in Freezer",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:StoreId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[S]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:RefrigerationState": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].Freezer.State"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:Temperature": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].Freezer.Temperature"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:TemperatureHealth": [
+    {
+     "type": "CalculatedStrategy",
+     "functionUri": "urn:atlas:ontology:mcdonalds:ClassifyHealth",
+     "arguments": [
+      {
+       "type": "propertyRef",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/value",
+       "propertyUri": "urn:atlas:ontology:mcdonalds:Temperature",
+       "order": 0
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/healthyThreshold",
+       "value": "0",
+       "order": 1
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/dangerThreshold",
+       "value": "10",
+       "order": 2
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-contains-freezer",
+  "name": "Store contains Walk-in Freezer",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-[S]-Freezer",
+  "source": "[S]",
+  "target": "[S]-Freezer",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ]
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-hvacunit",
+  "name": "Store Rooftop HVAC Units",
+  "type": "urn:atlas:ontology:mcdonalds:HVACUnit",
+  "instanceId": "[S]-HVACUnit",
+  "label": "Rooftop HVAC Unit",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:StoreId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[S]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:HVACState": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].HVAC.State"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:SupplyAirTemperature": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].HVAC.SupplyAirTemperature"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:SupplyAirTemperatureHealth": [
+    {
+     "type": "CalculatedStrategy",
+     "functionUri": "urn:atlas:ontology:mcdonalds:ClassifyHealth",
+     "arguments": [
+      {
+       "type": "propertyRef",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/value",
+       "propertyUri": "urn:atlas:ontology:mcdonalds:SupplyAirTemperature",
+       "order": 0
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/healthyThreshold",
+       "value": "72",
+       "order": 1
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/dangerThreshold",
+       "value": "80",
+       "order": 2
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-contains-hvacunit",
+  "name": "Store contains Rooftop HVAC Unit",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-[S]-HVACUnit",
+  "source": "[S]",
+  "target": "[S]-HVACUnit",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ]
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-generator",
+  "name": "Store Backup Generators",
+  "type": "urn:atlas:ontology:mcdonalds:Generator",
+  "instanceId": "[S]-Generator",
+  "label": "Backup Generator",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:StoreId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[S]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:GeneratorState": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].Generator.State"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:LoadPercent": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].Generator.LoadPercent"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:LoadPercentHealth": [
+    {
+     "type": "CalculatedStrategy",
+     "functionUri": "urn:atlas:ontology:mcdonalds:ClassifyHealth",
+     "arguments": [
+      {
+       "type": "propertyRef",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/value",
+       "propertyUri": "urn:atlas:ontology:mcdonalds:LoadPercent",
+       "order": 0
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/healthyThreshold",
+       "value": "80",
+       "order": 1
+      },
+      {
+       "type": "literal",
+       "parameter": "urn:atlas:ontology:mcdonalds:param/dangerThreshold",
+       "value": "90",
+       "order": 2
+      }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-contains-generator",
+  "name": "Store contains Backup Generator",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-[S]-Generator",
+  "source": "[S]",
+  "target": "[S]-Generator",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ]
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-softserve",
+  "name": "Store Soft Serve Machines",
+  "type": "urn:atlas:ontology:mcdonalds:SoftServeMachine",
+  "instanceId": "[S]-SoftServe",
+  "label": "Soft Serve Machine",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ],
+  "properties": {
+   "urn:atlas:ontology:mcdonalds:StoreId": [
+    {
+     "type": "StaticStrategy",
+     "value": "[S]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:SoftServeState": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_faabed/McDonalds/[S].SoftServe.State"
+    }
+   ]
+  }
+ },
+ {
+  "fileName": "store-equipment.map.json",
+  "id": "store-contains-softserve",
+  "name": "Store contains Soft Serve Machine",
+  "type": "urn:atlas:ontology:atlas-common:contains",
+  "instanceId": "contains-[S]-SoftServe",
+  "source": "[S]",
+  "target": "[S]-SoftServe",
+  "sources": {
+   "p": {
+    "bindingPath": "con_c10edc/Stores"
+   }
+  },
+  "map": [
+   {
+    "name": "S",
+    "data": "[p.store_id]"
+   }
+  ]
+ }
+]

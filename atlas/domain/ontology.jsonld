@@ -1,0 +1,18 @@
+{
+  "@context": [
+    "../../libraries/atlas-core.jsonld",
+    "../../libraries/atlas-common.jsonld",
+    "../../libraries/mcdonalds.jsonld",
+    {
+      "mcdonalds-ops": "urn:atlas:ontology:mcdonalds-ops:"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "urn:atlas:ontology:mcdonalds-ops",
+      "@type": "owl:Ontology",
+      "rdfs:label": "Mcdonalds Ops Domain",
+      "rdfs:comment": "McDonald's Arkansas operations: the enterprise, 6 territories, 191 restaurants (from Postgres mcdonalds_ar via Connect source mcd-pg) and each store's walk-in cooler, walk-in freezer, rooftop HVAC unit, backup generator and soft serve machine, bound live to the Historian dataset McDonalds via Connect source mcd-historian. All types come from the mcdonalds library."
+    }
+  ]
+}
