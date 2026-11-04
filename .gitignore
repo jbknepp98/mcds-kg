@@ -1,2 +1,4 @@
 mcd.env
 *.bak
+logs/
+.health_baseline_state.json

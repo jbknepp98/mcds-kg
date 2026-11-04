@@ -1,0 +1,634 @@
+[
+  {
+    "id": "technicians",
+    "name": "Technicians",
+    "type": "urn:atlas:ontology:mcdonalds:Technician",
+    "instanceId": "[Tid]",
+    "label": "[Nm]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Technicians"
+      }
+    },
+    "map": [
+      {
+        "name": "Tid",
+        "data": "[p.technician_id]",
+        "wrap": false
+      },
+      {
+        "name": "Nm",
+        "data": "[p.full_name]",
+        "wrap": false
+      },
+      {
+        "name": "Lv",
+        "data": "[p.cert_level_code]",
+        "wrap": false
+      },
+      {
+        "name": "Rk",
+        "data": "[p.level_rank]",
+        "wrap": false
+      },
+      {
+        "name": "Hs",
+        "data": "[p.home_store_id]",
+        "wrap": false
+      },
+      {
+        "name": "Hd",
+        "data": "[p.hire_date]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:TechnicianId": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Tid]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Nm]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:CertLevel": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Lv]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:LevelRank": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Rk]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HomeStoreId": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Hs]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HireDate": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Hd]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "trucks",
+    "name": "Service Trucks",
+    "type": "urn:atlas:ontology:mcdonalds:ServiceTruck",
+    "instanceId": "[Tk]",
+    "label": "[Tk]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Trucks"
+      }
+    },
+    "map": [
+      {
+        "name": "Tk",
+        "data": "[p.truck_id]",
+        "wrap": false
+      },
+      {
+        "name": "Mk",
+        "data": "[p.make]",
+        "wrap": false
+      },
+      {
+        "name": "Md",
+        "data": "[p.model]",
+        "wrap": false
+      },
+      {
+        "name": "Yr",
+        "data": "[p.model_year]",
+        "wrap": false
+      },
+      {
+        "name": "Lp",
+        "data": "[p.license_plate]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:TruckId": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Tk]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Tk] [Mk] [Md]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Make": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Mk]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Model": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Md]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ModelYear": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Yr]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:LicensePlate": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Lp]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "certifications",
+    "name": "Certifications",
+    "type": "urn:atlas:ontology:mcdonalds:Certification",
+    "instanceId": "CERT-[C]",
+    "label": "[Nm]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Certifications"
+      }
+    },
+    "map": [
+      {
+        "name": "C",
+        "data": "[p.certification_code]",
+        "wrap": false
+      },
+      {
+        "name": "Nm",
+        "data": "[p.name]",
+        "wrap": false
+      },
+      {
+        "name": "Ib",
+        "data": "[p.issuing_body]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:CertificationCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "[C]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Nm]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:IssuingBody": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ib]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "parts",
+    "name": "Parts",
+    "type": "urn:atlas:ontology:mcdonalds:Part",
+    "instanceId": "[Pn]",
+    "label": "[Nm]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Parts"
+      }
+    },
+    "map": [
+      {
+        "name": "Pn",
+        "data": "[p.part_number]",
+        "wrap": false
+      },
+      {
+        "name": "Nm",
+        "data": "[p.name]",
+        "wrap": false
+      },
+      {
+        "name": "Ec",
+        "data": "[p.equipment_class_code]",
+        "wrap": false
+      },
+      {
+        "name": "Uc",
+        "data": "[p.unit_cost_usd]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:PartNumber": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Pn]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Nm]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ec]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:UnitCostUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Uc]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "repair-tasks",
+    "name": "Repair Tasks",
+    "type": "urn:atlas:ontology:mcdonalds:RepairTask",
+    "instanceId": "TASK-[Rt]",
+    "label": "[Nm]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/RepairTasks"
+      }
+    },
+    "map": [
+      {
+        "name": "Rt",
+        "data": "[p.repair_task_code]",
+        "wrap": false
+      },
+      {
+        "name": "Nm",
+        "data": "[p.name]",
+        "wrap": false
+      },
+      {
+        "name": "Ec",
+        "data": "[p.equipment_class_code]",
+        "wrap": false
+      },
+      {
+        "name": "Ca",
+        "data": "[p.condition_answered]",
+        "wrap": false
+      },
+      {
+        "name": "Sy",
+        "data": "[p.symptom]",
+        "wrap": false
+      },
+      {
+        "name": "Ml",
+        "data": "[p.min_level_rank]",
+        "wrap": false
+      },
+      {
+        "name": "Em",
+        "data": "[p.est_minutes]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:RepairTaskCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Rt]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Name": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Nm]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ec]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ConditionAnswered": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ca]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Symptom": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Sy]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MinLevelRank": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ml]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:EstMinutes": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Em]"
+        }
+      ]
+    }
+  },
+  {
+    "id": "assigned-truck",
+    "name": "Technician assigned Truck",
+    "type": "urn:atlas:ontology:mcdonalds:assignedTruck",
+    "instanceId": "assigned-[Tid]-[Tk]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/TruckAssignments"
+      }
+    },
+    "map": [
+      {
+        "name": "Tid",
+        "data": "[p.technician_id]",
+        "wrap": false
+      },
+      {
+        "name": "Tk",
+        "data": "[p.truck_id]",
+        "wrap": false
+      },
+      {
+        "name": "Sd",
+        "data": "[p.start_date]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:AssignedSince": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Sd]"
+        }
+      ]
+    },
+    "source": "[Tid]",
+    "target": "[Tk]"
+  },
+  {
+    "id": "holds-certification",
+    "name": "Technician holds Certification",
+    "type": "urn:atlas:ontology:mcdonalds:holdsCertification",
+    "instanceId": "holds-[Tid]-[C]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/TechnicianCertifications"
+      }
+    },
+    "map": [
+      {
+        "name": "Tid",
+        "data": "[p.technician_id]",
+        "wrap": false
+      },
+      {
+        "name": "C",
+        "data": "[p.certification_code]",
+        "wrap": false
+      },
+      {
+        "name": "Cn",
+        "data": "[p.certificate_number]",
+        "wrap": false
+      },
+      {
+        "name": "Ex",
+        "data": "[p.expires_date]",
+        "wrap": false
+      },
+      {
+        "name": "Cur",
+        "data": "[p.is_current]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:CertificateNumber": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Cn]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ExpiresDate": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Ex]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:IsCurrent": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Cur]"
+        }
+      ]
+    },
+    "source": "[Tid]",
+    "target": "CERT-[C]"
+  },
+  {
+    "id": "carries-part",
+    "name": "Truck carries Part",
+    "type": "urn:atlas:ontology:mcdonalds:carriesPart",
+    "instanceId": "carries-[Tk]-[Pn]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/TruckInventory"
+      }
+    },
+    "map": [
+      {
+        "name": "Tk",
+        "data": "[p.truck_id]",
+        "wrap": false
+      },
+      {
+        "name": "Pn",
+        "data": "[p.part_number]",
+        "wrap": false
+      },
+      {
+        "name": "Qh",
+        "data": "[p.quantity_on_hand]",
+        "wrap": false
+      },
+      {
+        "name": "Pq",
+        "data": "[p.par_quantity]",
+        "wrap": false
+      },
+      {
+        "name": "Id",
+        "data": "[p.inventory_date]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:QuantityOnHand": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Qh]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ParQuantity": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Pq]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:InventoryDate": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Id]"
+        }
+      ]
+    },
+    "source": "[Tk]",
+    "target": "[Pn]"
+  },
+  {
+    "id": "requires-certification",
+    "name": "Task requires Certification",
+    "type": "urn:atlas:ontology:mcdonalds:requiresCertification",
+    "instanceId": "requires-[Rt]-[C]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/RepairTaskCertifications"
+      }
+    },
+    "map": [
+      {
+        "name": "Rt",
+        "data": "[p.repair_task_code]",
+        "wrap": false
+      },
+      {
+        "name": "C",
+        "data": "[p.certification_code]",
+        "wrap": false
+      }
+    ],
+    "source": "TASK-[Rt]",
+    "target": "CERT-[C]"
+  },
+  {
+    "id": "requires-part",
+    "name": "Task requires Part",
+    "type": "urn:atlas:ontology:mcdonalds:requiresPart",
+    "instanceId": "requires-[Rt]-[Pn]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/RepairTaskParts"
+      }
+    },
+    "map": [
+      {
+        "name": "Rt",
+        "data": "[p.repair_task_code]",
+        "wrap": false
+      },
+      {
+        "name": "Pn",
+        "data": "[p.part_number]",
+        "wrap": false
+      },
+      {
+        "name": "Q",
+        "data": "[p.quantity]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:Quantity": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Q]"
+        }
+      ]
+    },
+    "source": "TASK-[Rt]",
+    "target": "[Pn]"
+  },
+  {
+    "id": "based-at",
+    "name": "Technician based at Store",
+    "type": "urn:atlas:ontology:mcdonalds:basedAt",
+    "instanceId": "based-[Tid]-[Hs]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Technicians"
+      }
+    },
+    "map": [
+      {
+        "name": "Tid",
+        "data": "[p.technician_id]",
+        "wrap": false
+      },
+      {
+        "name": "Hs",
+        "data": "[p.home_store_id]",
+        "wrap": false
+      }
+    ],
+    "source": "[Tid]",
+    "target": "[Hs]"
+  },
+  {
+    "id": "serves-territory",
+    "name": "Technician serves Territory",
+    "type": "urn:atlas:ontology:mcdonalds:servesTerritory",
+    "instanceId": "serves-[Tid]-[Te]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/Technicians"
+      }
+    },
+    "map": [
+      {
+        "name": "Tid",
+        "data": "[p.technician_id]",
+        "wrap": false
+      },
+      {
+        "name": "Te",
+        "data": "[p.home_territory_id]",
+        "wrap": false
+      }
+    ],
+    "source": "[Tid]",
+    "target": "[Te]"
+  }
+]

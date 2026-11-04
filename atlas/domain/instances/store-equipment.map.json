@@ -61,6 +61,170 @@
             }
           ]
         }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "COOLER"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MaxDetourMiles": [
+        {
+          "type": "StaticStrategy",
+          "value": "30"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "3500"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalValue": [
+        {
+          "type": "StaticStrategy",
+          "value": "38.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalTolerance": [
+        {
+          "type": "StaticStrategy",
+          "value": "1.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HourlyAverage": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Cooler.TemperatureAvg1h"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMean": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Cooler.TemperatureBaselineMean"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineStdDev": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Cooler.TemperatureBaselineStdDev"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMode": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Cooler.TemperatureBaselineMode"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HealthIndex": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:HealthIndexOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/hourlyAverage",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HourlyAverage",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineMean",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineMean",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineStdDev",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineStdDev",
+              "order": 2
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalValue",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalValue",
+              "order": 3
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalTolerance",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalTolerance",
+              "order": 4
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ServiceCondition": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ServiceConditionOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:RefrigerationState",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DetourAllowanceMiles": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:DetourAllowanceMilesOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/maxDetourMiles",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:MaxDetourMiles",
+              "order": 2
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ExposureUsd": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ExposureUsdOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/productAtRiskUsd",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd",
+              "order": 2
+            }
+          ]
+        }
       ]
     }
   },
@@ -142,6 +306,170 @@
               "type": "literal",
               "parameter": "urn:atlas:ontology:mcdonalds:param/dangerThreshold",
               "value": "10",
+              "order": 2
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "FREEZER"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MaxDetourMiles": [
+        {
+          "type": "StaticStrategy",
+          "value": "40"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "6000"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalValue": [
+        {
+          "type": "StaticStrategy",
+          "value": "-4.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalTolerance": [
+        {
+          "type": "StaticStrategy",
+          "value": "2.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HourlyAverage": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Freezer.TemperatureAvg1h"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMean": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Freezer.TemperatureBaselineMean"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineStdDev": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Freezer.TemperatureBaselineStdDev"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMode": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Freezer.TemperatureBaselineMode"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HealthIndex": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:HealthIndexOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/hourlyAverage",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HourlyAverage",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineMean",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineMean",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineStdDev",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineStdDev",
+              "order": 2
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalValue",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalValue",
+              "order": 3
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalTolerance",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalTolerance",
+              "order": 4
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ServiceCondition": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ServiceConditionOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:RefrigerationState",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DetourAllowanceMiles": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:DetourAllowanceMilesOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/maxDetourMiles",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:MaxDetourMiles",
+              "order": 2
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ExposureUsd": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ExposureUsdOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/productAtRiskUsd",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd",
               "order": 2
             }
           ]
@@ -231,6 +559,170 @@
             }
           ]
         }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "HVAC"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MaxDetourMiles": [
+        {
+          "type": "StaticStrategy",
+          "value": "15"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "800"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalValue": [
+        {
+          "type": "StaticStrategy",
+          "value": "58.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalTolerance": [
+        {
+          "type": "StaticStrategy",
+          "value": "3.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HourlyAverage": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].HVAC.SupplyAirTemperatureAvg1h"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMean": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].HVAC.SupplyAirTemperatureBaselineMean"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineStdDev": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].HVAC.SupplyAirTemperatureBaselineStdDev"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMode": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].HVAC.SupplyAirTemperatureBaselineMode"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HealthIndex": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:HealthIndexOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/hourlyAverage",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HourlyAverage",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineMean",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineMean",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineStdDev",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineStdDev",
+              "order": 2
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalValue",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalValue",
+              "order": 3
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalTolerance",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalTolerance",
+              "order": 4
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ServiceCondition": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ServiceConditionOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HVACState",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DetourAllowanceMiles": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:DetourAllowanceMilesOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/maxDetourMiles",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:MaxDetourMiles",
+              "order": 2
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ExposureUsd": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ExposureUsdOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/productAtRiskUsd",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd",
+              "order": 2
+            }
+          ]
+        }
       ]
     }
   },
@@ -316,6 +808,170 @@
             }
           ]
         }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "GENERATOR"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MaxDetourMiles": [
+        {
+          "type": "StaticStrategy",
+          "value": "5"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "300"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalValue": [
+        {
+          "type": "StaticStrategy",
+          "value": "70.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:NormalTolerance": [
+        {
+          "type": "StaticStrategy",
+          "value": "6.0"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HourlyAverage": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Generator.LoadPercentAvg1h"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMean": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Generator.LoadPercentBaselineMean"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineStdDev": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Generator.LoadPercentBaselineStdDev"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:BaselineMode": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].Generator.LoadPercentBaselineMode"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HealthIndex": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:HealthIndexOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/hourlyAverage",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HourlyAverage",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineMean",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineMean",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/baselineStdDev",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:BaselineStdDev",
+              "order": 2
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalValue",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalValue",
+              "order": 3
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/normalTolerance",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:NormalTolerance",
+              "order": 4
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ServiceCondition": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ServiceConditionOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:GeneratorState",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DetourAllowanceMiles": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:DetourAllowanceMilesOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/maxDetourMiles",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:MaxDetourMiles",
+              "order": 2
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ExposureUsd": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ExposureUsdOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/healthIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/productAtRiskUsd",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd",
+              "order": 2
+            }
+          ]
+        }
       ]
     }
   },
@@ -368,6 +1024,194 @@
         {
           "type": "BoundStrategy",
           "bindingPath": "con_faabed/McDonalds/[S].SoftServe.State"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:EquipmentClassCode": [
+        {
+          "type": "StaticStrategy",
+          "value": "SOFTSERVE"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MaxDetourMiles": [
+        {
+          "type": "StaticStrategy",
+          "value": "10"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ProductAtRiskUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "400"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ServiceCondition": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:SoftServeConditionOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:SoftServeState",
+              "order": 0
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DetourAllowanceMiles": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:FaultDetourAllowanceMilesOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/condition",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ServiceCondition",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/maxDetourMiles",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:MaxDetourMiles",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Uptime24h": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.Uptime24h"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Uptime7d": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.Uptime7d"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Serving7d": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.Serving7d"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:Failures7d": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.Failures7d"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MtbfHours": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.MtbfHours"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:MttrHours": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.MttrHours"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DownMinutes": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.DownMinutes"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DownHours7d": [
+        {
+          "type": "BoundStrategy",
+          "bindingPath": "con_faabed/McDonalds/[S].SoftServe.DownHours7d"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DowntimeRevenuePerHourUsd": [
+        {
+          "type": "StaticStrategy",
+          "value": "42.00"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ReliabilityScore": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ReliabilityScoreOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/uptime7d",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:Uptime7d",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/uptime24h",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:Uptime24h",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:ReliabilityGrade": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:ReliabilityGradeOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/reliabilityScore",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:ReliabilityScore",
+              "order": 0
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:LostSalesUsd7d": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:LostSalesUsdOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/downHours",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:DownHours7d",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/revenuePerHour",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:DowntimeRevenuePerHourUsd",
+              "order": 1
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:IsServing": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:IsServingOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:SoftServeState",
+              "order": 0
+            }
+          ]
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:CustomerHearsBroken": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:CustomerHearsBrokenOf",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/state",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:SoftServeState",
+              "order": 0
+            }
+          ]
         }
       ]
     }

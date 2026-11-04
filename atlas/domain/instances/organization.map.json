@@ -332,6 +332,66 @@
           "type": "StaticStrategy",
           "value": "[Pp]"
         }
+      ],
+      "urn:atlas:ontology:mcdonalds:CoolerHealthIndex": [
+        {
+          "type": "ReferenceStrategy",
+          "instanceUri": "[S]-Cooler",
+          "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:FreezerHealthIndex": [
+        {
+          "type": "ReferenceStrategy",
+          "instanceUri": "[S]-Freezer",
+          "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:HVACHealthIndex": [
+        {
+          "type": "ReferenceStrategy",
+          "instanceUri": "[S]-HVACUnit",
+          "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:GeneratorHealthIndex": [
+        {
+          "type": "ReferenceStrategy",
+          "instanceUri": "[S]-Generator",
+          "propertyUri": "urn:atlas:ontology:mcdonalds:HealthIndex"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:StoreHealthIndex": [
+        {
+          "type": "CalculatedStrategy",
+          "functionUri": "urn:atlas:ontology:mcdonalds:WorstHealthIndex",
+          "arguments": [
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/coolerIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:CoolerHealthIndex",
+              "order": 0
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/freezerIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:FreezerHealthIndex",
+              "order": 1
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/hvacIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:HVACHealthIndex",
+              "order": 2
+            },
+            {
+              "type": "propertyRef",
+              "parameter": "urn:atlas:ontology:mcdonalds:param/generatorIndex",
+              "propertyUri": "urn:atlas:ontology:mcdonalds:GeneratorHealthIndex",
+              "order": 3
+            }
+          ]
+        }
       ]
     }
   },

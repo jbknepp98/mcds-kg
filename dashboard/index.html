@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soft Serve Finder · McDonald's Arkansas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root {
+  --red: #DA291C; --red-deep: #B31F14; --yellow: #FFC72C; --yellow-soft: #FFE38A;
+  --ink: #27251F; --ink-2: #5B564B; --cream: #FFF8E9; --paper: #FFFFFF; --line: #EADFC8;
+  --ok: #1F8A47; --ok-bg: #E3F4E8; --warn: #B87300; --warn-bg: #FFF1CC; --bad: #C8261A; --bad-bg: #FDE4E1;
+  --off: #8A8478; --off-bg: #EFEBE3;
+  --gA: #1F8A47; --gB: #6DAE3F; --gC: #F2A900; --gD: #E46A1B; --gF: #C8261A;
+  --radius: 18px; --shadow: 0 10px 30px rgba(39,37,31,.12);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Nunito Sans", system-ui, sans-serif; }
+a { color: var(--red); }
+h1, h2, h3, .display { font-family: "Archivo Black", "Nunito Sans", sans-serif; font-weight: 400; letter-spacing: -.01em; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+/* ---------- header ---------- */
+header.hero { background: var(--red); color: #fff; position: relative; overflow: hidden; padding: 22px 0 96px; }
+header.hero::after { content: ""; position: absolute; inset: auto -10% -60px -10%; height: 120px; background: var(--cream); border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand .eyebrow { font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--yellow); }
+.brand .name { font-family: "Archivo Black"; font-size: 22px; line-height: 1; }
+.updated { font-size: 13px; opacity: .9; display: flex; align-items: center; gap: 8px; }
+.pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 0 rgba(255,199,44,.7); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,199,44,.7);} 70% { box-shadow: 0 0 0 10px rgba(255,199,44,0);} 100% { box-shadow: 0 0 0 0 rgba(255,199,44,0);} }
+.headline { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: end; margin-top: 34px; position: relative; z-index: 1; }
+.headline h1 { font-size: clamp(34px, 5.4vw, 64px); line-height: .98; margin: 0; }
+.headline h1 em { font-style: normal; color: var(--yellow); }
+.answer { background: rgba(0,0,0,.16); border: 2px solid rgba(255,255,255,.18); border-radius: var(--radius); padding: 18px 20px; }
+.answer .big { font-family: "Archivo Black"; font-size: clamp(30px, 4vw, 46px); color: var(--yellow); line-height: 1; }
+.answer .sub { margin-top: 8px; font-size: 16px; line-height: 1.4; }
+.answer .sub b { color: var(--yellow); }
+
+/* ---------- search ---------- */
+.search { position: relative; z-index: 2; margin-top: -70px; }
+.search-card { background: var(--yellow); border-radius: 24px; box-shadow: var(--shadow); padding: 22px 24px; display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; }
+.search-card h2 { margin: 0 0 4px; font-size: 24px; }
+.search-card p { margin: 0; color: var(--ink-2); font-weight: 600; }
+form.zip { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+form.zip input { font: 800 24px "Nunito Sans"; letter-spacing: .12em; width: 170px; padding: 12px 16px; border-radius: 14px; border: 3px solid var(--ink); background: #fff; color: var(--ink); }
+form.zip input:focus { outline: 4px solid rgba(218,41,28,.35); }
+.btn { font: 800 17px "Nunito Sans"; border: 0; border-radius: 14px; padding: 14px 20px; cursor: pointer; background: var(--red); color: #fff; box-shadow: 0 4px 0 var(--red-deep); transition: transform .08s; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--red-deep); }
+.btn.ghost { background: #fff; color: var(--ink); box-shadow: 0 4px 0 #d9c99f; }
+.chips { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 14px; font-weight: 700; }
+.chip { border: 2px solid var(--ink); background: transparent; border-radius: 999px; padding: 5px 12px; font: 700 13px "Nunito Sans"; cursor: pointer; color: var(--ink); }
+.chip:hover { background: var(--ink); color: var(--yellow); }
+.msg { grid-column: 1 / -1; font-weight: 700; color: var(--red-deep); min-height: 0; }
+
+/* ---------- results ---------- */
+section { margin-top: 34px; }
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.section-head h2 { margin: 0; font-size: 28px; }
+.section-head p { margin: 4px 0 0; color: var(--ink-2); max-width: 760px; }
+.results { display: grid; grid-template-columns: minmax(320px, 440px) 1fr; gap: 20px; }
+.card { background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+.winner { border: 4px solid var(--ok); position: relative; }
+.winner .tag { position: absolute; top: -14px; left: 16px; background: var(--ok); color: #fff; font: 800 12px "Nunito Sans"; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+.winner h3 { margin: 6px 0 2px; font-size: 26px; }
+.winner .addr { color: var(--ink-2); font-weight: 600; }
+.winner .dist { font-family: "Archivo Black"; font-size: 40px; color: var(--ok); line-height: 1; margin: 14px 0 4px; }
+.winner .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.empty { color: var(--ink-2); font-weight: 600; }
+.nearby { margin-top: 16px; display: grid; gap: 10px; }
+.near { background: var(--paper); border-radius: 14px; padding: 12px 14px; border-left: 6px solid var(--off); box-shadow: 0 3px 10px rgba(39,37,31,.07); cursor: pointer; }
+.near.s-ok { border-left-color: var(--ok); } .near.s-warn { border-left-color: var(--yellow); } .near.s-bad { border-left-color: var(--bad); }
+.near .top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.near .who { font-weight: 800; }
+.near .mi { font-weight: 800; color: var(--ink-2); white-space: nowrap; }
+.near .why { font-size: 14px; color: var(--ink-2); margin-top: 3px; line-height: 1.35; }
+.near .fixer { font-size: 13px; margin-top: 6px; padding: 6px 8px; border-radius: 8px; background: var(--off-bg); }
+.near .fixer.go { background: var(--ok-bg); }
+.near .fixer.blocked { background: var(--bad-bg); }
+#map { height: 640px; border-radius: var(--radius); box-shadow: var(--shadow); border: 4px solid #fff; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font: 800 12px "Nunito Sans"; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.pill.ok { background: var(--ok-bg); color: var(--ok); } .pill.warn { background: var(--warn-bg); color: var(--warn); }
+.pill.bad { background: var(--bad-bg); color: var(--bad); } .pill.off { background: var(--off-bg); color: var(--off); }
+.grade { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: #fff; font-family: "Archivo Black"; font-size: 18px; flex: none; }
+.grade.g4 { background: var(--gA); } .grade.g3 { background: var(--gB); } .grade.g2 { background: var(--gC); color: var(--ink); } .grade.g1 { background: var(--gD); } .grade.g0 { background: var(--gF); } .grade.gx { background: var(--off); }
+.gradeline { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.gradeline small { display: block; color: var(--ink-2); font-weight: 600; }
+
+/* ---------- KPIs ---------- */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.kpi { background: var(--paper); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); border-top: 8px solid var(--off); }
+.kpi.k-bad { border-top-color: var(--bad); } .kpi.k-hear { border-top-color: var(--red); } .kpi.k-warn { border-top-color: var(--yellow); } .kpi.k-usd { border-top-color: var(--ink); }
+.kpi .label { font-weight: 800; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.kpi .value { font-family: "Archivo Black"; font-size: 42px; line-height: 1.05; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.kpi .note { font-size: 14px; color: var(--ink-2); margin-top: 6px; line-height: 1.35; }
+.gapbar { margin-top: 16px; background: var(--paper); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+.gapbar .bar { display: flex; height: 26px; border-radius: 999px; overflow: hidden; margin: 10px 0 8px; background: var(--off-bg); }
+.gapbar .bar span { display: block; height: 100%; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* ---------- right to repair ---------- */
+.r2r { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items: stretch; }
+.r2r .card { display: flex; flex-direction: column; justify-content: center; }
+.toggle { display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none; font-weight: 800; font-size: 18px; }
+.toggle input { display: none; }
+.toggle .track { width: 64px; height: 36px; border-radius: 999px; background: var(--off); position: relative; transition: background .2s; flex: none; }
+.toggle .knob { position: absolute; top: 4px; left: 4px; width: 28px; height: 28px; border-radius: 50%; background: #fff; transition: left .2s; box-shadow: 0 2px 4px rgba(0,0,0,.25); }
+.toggle input:checked + .track { background: var(--ok); }
+.toggle input:checked + .track .knob { left: 32px; }
+.fixnum { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.fixnum .n { font-family: "Archivo Black"; font-size: 56px; line-height: 1; color: var(--ok); font-variant-numeric: tabular-nums; }
+.fixnum .of { font-weight: 700; color: var(--ink-2); }
+
+/* ---------- reliability matrix ---------- */
+.matrix-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.results > *, .r2r > *, .matrix-grid > * { min-width: 0; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.heat th, .heat td { padding: 10px 8px; text-align: center; font-weight: 700; }
+.heat th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); vertical-align: bottom; }
+.heat th div { white-space: normal; max-width: 110px; margin: 4px auto 0; line-height: 1.2; }
+.heat td.terr { text-align: left; font-weight: 800; white-space: nowrap; }
+.heat td.cell { border-radius: 10px; }
+.heat tr + tr td { border-top: 4px solid var(--paper); }
+.tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.tools select, .tools input { font: 700 14px "Nunito Sans"; padding: 9px 12px; border-radius: 10px; border: 2px solid var(--line); background: #fff; color: var(--ink); }
+.scroller { overflow-x: auto; }
+.machines th { position: sticky; top: 0; z-index: 1; background: var(--ink); color: #fff; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 10px 6px; text-align: left; cursor: pointer; white-space: nowrap; }
+.machines th:first-child { border-top-left-radius: 12px; } .machines th:last-child { border-top-right-radius: 12px; }
+.machines th.num, .machines td.num { text-align: right; }
+.machines th .arrow { color: var(--yellow); }
+.machines { font-size: 13px; }
+.machines .grade { width: 26px; height: 26px; font-size: 14px; border-radius: 8px; }
+.machines td { padding: 7px 6px; border-bottom: 1px solid var(--line); font-weight: 600; white-space: nowrap; }
+.machines tr:hover td { background: #FFF6DB; cursor: pointer; }
+.meter { display: inline-block; width: 48px; height: 9px; background: var(--off-bg); border-radius: 999px; overflow: hidden; vertical-align: middle; margin-right: 6px; }
+.meter b { display: block; height: 100%; border-radius: 999px; }
+.tablewrap { max-height: 560px; overflow: auto; border-radius: 12px; }
+
+/* ---------- lore ---------- */
+.lore { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.lore .card { border-top: 8px solid var(--yellow); }
+.lore .yr { font-family: "Archivo Black"; color: var(--red); font-size: 22px; }
+.lore h3 { margin: 4px 0 6px; font-size: 18px; }
+.lore p { margin: 0; color: var(--ink-2); line-height: 1.45; font-size: 15px; }
+.lore a { font-weight: 800; font-size: 13px; display: inline-block; margin-top: 8px; }
+footer { margin: 48px 0 0; background: var(--ink); color: #DDD6C7; padding: 26px 0 34px; font-size: 14px; line-height: 1.5; }
+footer b { color: var(--yellow); }
+.err { background: var(--bad-bg); color: var(--bad); font-weight: 800; padding: 12px 16px; border-radius: 12px; margin-top: 16px; display: none; }
+
+/* map markers */
+.you { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; background: var(--red); transform: rotate(-45deg); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.leaflet-popup-content { font-family: "Nunito Sans"; font-size: 14px; }
+.leaflet-popup-content b { font-family: "Archivo Black"; font-weight: 400; }
+
+@media (max-width: 960px) {
+  .headline, .results, .r2r, .search-card { grid-template-columns: 1fr; }
+  form.zip { justify-content: flex-start; }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  #map { height: 420px; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 16px; }
+  .kpis { grid-template-columns: 1fr; }
+  form.zip input { width: 100%; }
+  form.zip .btn { flex: 1; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <svg width="46" height="58" viewBox="0 0 46 58" aria-hidden="true">
+          <path d="M9 28 L23 57 L37 28 Z" fill="#E8A951" stroke="#27251F" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M14 33 L30 33 M16 39 L28 39 M18.5 45 L25.5 45 M17 30 L27 50 M29 30 L19 50" stroke="#B97A2A" stroke-width="1.6"/>
+          <path d="M7 28 C3 28 3 21 8 20 C5 15 10 11 14 13 C14 7 21 6 23 9 C25 4 33 6 31 12 C37 11 40 17 36 20 C42 21 41 28 37 28 Z" fill="#FFFFFF" stroke="#27251F" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M23 2 C26 4 26 7 23 9" fill="none" stroke="#27251F" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="16" cy="21" r="2" fill="#DA291C"/><circle cx="27" cy="16" r="2" fill="#FFC72C"/><circle cx="31" cy="23" r="2" fill="#DA291C"/>
+        </svg>
+        <div>
+          <div class="eyebrow">McDonald's Arkansas</div>
+          <div class="name">Soft Serve Finder</div>
+        </div>
+      </div>
+      <div class="updated"><span class="pulse"></span><span id="updated">Connecting to Atlas…</span></div>
+    </div>
+    <div class="headline">
+      <h1>Is the ice cream machine <em>broken?</em></h1>
+      <div class="answer">
+        <div class="big" id="answer-big">Checking…</div>
+        <div class="sub" id="answer-sub">Live from 191 restaurants across Arkansas.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap search">
+  <div class="search-card">
+    <div>
+      <h2>Find a working machine</h2>
+      <p>Enter your ZIP. We'll find the closest McFlurry that's actually happening.</p>
+    </div>
+    <form class="zip" id="zipform" autocomplete="off">
+      <input id="zip" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="72201" aria-label="ZIP code">
+      <button class="btn" type="submit">Find my McFlurry</button>
+      <button class="btn ghost" type="button" id="locate">Use my location</button>
+    </form>
+    <div class="chips">Try:
+      <button class="chip" data-zip="72201">72201 Little Rock</button>
+      <button class="chip" data-zip="72701">72701 Fayetteville</button>
+      <button class="chip" data-zip="72401">72401 Jonesboro</button>
+      <button class="chip" data-zip="71601">71601 Pine Bluff</button>
+      <button class="chip" data-zip="71901">71901 Hot Springs</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+  <div class="err" id="err"></div>
+</div>
+
+<main class="wrap">
+  <section>
+    <div class="results">
+      <div>
+        <div class="card winner" id="winner">
+          <span class="tag">Closest working machine</span>
+          <div class="empty" id="winner-body">Enter a ZIP code (or use your location) and we'll find the nearest restaurant with a working soft serve machine, and tell you the honest truth about the ones in between.</div>
+        </div>
+        <div class="nearby" id="nearby"></div>
+      </div>
+      <div id="map" role="region" aria-label="Map of restaurants"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div>
+        <h2>Right now, statewide</h2>
+        <p>A machine counts as broken only when it's in <b>Needs Service</b>. But anything other than "serving" gets the same answer at the counter.</p>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi k-bad"><div class="label">Actually broken</div><div class="value" id="k-broken">–</div><div class="note" id="k-broken-n"></div></div>
+      <div class="kpi k-hear"><div class="label">Customer hears "it's broken"</div><div class="value" id="k-hear">–</div><div class="note" id="k-hear-n"></div></div>
+      <div class="kpi k-warn"><div class="label">It's not broken, it's cleaning</div><div class="value" id="k-clean">–</div><div class="note" id="k-clean-n"></div></div>
+      <div class="kpi k-usd"><div class="label">Treat sales lost this week</div><div class="value" id="k-usd">–</div><div class="note" id="k-usd-n"></div></div>
+    </div>
+    <div class="gapbar">
+      <b>What 170 open restaurants would tell you right now</b>
+      <div class="bar" id="gapbar"></div>
+      <div class="legend">
+        <span><i style="background:var(--ok)"></i>Serving</span>
+        <span><i style="background:var(--yellow)"></i>Heat treat ("cleaning")</span>
+        <span><i style="background:#F7DD8A"></i>Mix low</span>
+        <span><i style="background:var(--bad)"></i>Actually broken</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div>
+        <h2>Right to Repair</h2>
+        <p>In October 2024 the US Copyright Office granted a DMCA exemption for repairing retail food-prep equipment, soft serve machines included. Before that, only manufacturer-authorised technicians could get into the machine. Every one of our vans carries a Taylor tune-up kit. Flip the switch to see who could actually use it.</p>
+      </div>
+    </div>
+    <div class="r2r">
+      <div class="card">
+        <label class="toggle"><input type="checkbox" id="r2r"><span class="track"><span class="knob"></span></span><span id="r2r-label">Taylor-certified technicians only</span></label>
+        <p style="margin:14px 0 0;color:var(--ink-2);font-weight:600" id="r2r-text"></p>
+      </div>
+      <div class="card">
+        <div class="label" style="font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)">Broken machines a technician could fix today</div>
+        <div class="fixnum"><span class="n" id="fix-n">–</span><span class="of" id="fix-of"></span></div>
+        <div style="color:var(--ink-2);font-weight:600;margin-top:6px">Within 30 road miles of a technician's home store, with the parts on today's truck count.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div>
+        <h2>Reliability matrix</h2>
+        <p>Scored on uptime, live in Atlas: <b>70% × 7-day uptime + 30% × 24-hour uptime</b> (time not in Needs Service). A ≥ 97 · B ≥ 90 · C ≥ 80 · D ≥ 70 · F below. "Serving" is the share of the week a customer could actually get one.</p>
+      </div>
+    </div>
+    <div class="matrix-grid">
+      <div class="card scroller">
+        <table class="heat" id="heat"></table>
+      </div>
+      <div class="card">
+        <div class="tools" style="justify-content:space-between;margin-bottom:12px">
+          <div class="tools">
+            <select id="f-terr" aria-label="Territory"><option value="">All territories</option></select>
+            <select id="f-grade" aria-label="Grade"><option value="">All grades</option><option value="4">A Swirl Legend</option><option value="3">B Dependable Dip</option><option value="2">C Coin Flip</option><option value="1">D Ask Before You Order</option><option value="0">F Certified Broken</option></select>
+            <input id="f-q" placeholder="Search city or store" aria-label="Search">
+          </div>
+          <button class="btn ghost" id="shame" type="button">Wall of Shame: worst first</button>
+        </div>
+        <div class="tablewrap">
+          <table class="machines" id="machines"><thead></thead><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div><h2>The lore</h2><p>Why everyone already knows this joke.</p></div></div>
+    <div class="lore">
+      <div class="card"><div class="yr">Aug 2020</div><h3>McDonald's tells the joke itself</h3><p>The official account tweeted: "We have a joke about our soft serve machine, but we're worried it won't work."</p><a href="https://en.wikipedia.org/wiki/McDonald%27s_ice_cream_machine" target="_blank" rel="noopener">Wikipedia →</a></div>
+      <div class="card"><div class="yr">Oct 2020</div><h3>McBroken.com</h3><p>Engineer Rashiq Zahid built a bot that tries to add a sundae to the cart at every US McDonald's. If it can't, the dot on his map turns red. This page is a tribute.</p><a href="https://www.today.com/today/amp/tdna195916" target="_blank" rel="noopener">TODAY →</a></div>
+      <div class="card"><div class="yr">~4 hours</div><h3>"It's cleaning"</h3><p>The machines run a nightly heat-treatment cycle, heating the mix to about 151 °F and refreezing it, that can take up to four hours. If it fails, the machine is down until a technician arrives.</p><a href="https://en.wikipedia.org/wiki/McDonald%27s_ice_cream_machine" target="_blank" rel="noopener">Background →</a></div>
+      <div class="card"><div class="yr">2021</div><h3>Kytch vs. the machine</h3><p>Startup Kytch sold a device that decoded the machines' cryptic errors. After McDonald's warned franchisees off it, Kytch sued McDonald's and Taylor. McDonald's called the claims meritless.</p><a href="https://hackaday.com/2021/08/23/freezing-out-ice-cream-machine-competition" target="_blank" rel="noopener">Hackaday →</a></div>
+      <div class="card"><div class="yr">Oct 2024</div><h3>Right to repair the McFlurry</h3><p>The US Copyright Office granted a DMCA exemption for repairing retail food-prep equipment. Public Knowledge: "There's nothing vanilla about this victory."</p><a href="https://www.engadget.com/big-tech/mcdonalds-restaurants-can-finally-repair-their-own-mcflurry-machines-183006996.html" target="_blank" rel="noopener">Engadget →</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Demo, not a real service.</b> Machine states are simulated telemetry (Timebase Historian → Connect → Atlas domain <code>mcdonalds-ops</code>); restaurants, technicians and trucks are demo data. Distances are straight-line × 1.3. Not affiliated with or endorsed by McDonald's, Taylor or McBroken. Inspired by McBroken.com.
+  </div>
+</footer>
+
+<script>
+(() => {
+  const STATE_NAMES = {0: "Serving", 10: "Heat treat", 20: "Mix low", 40: "Needs service"};
+  const GRADES = {4: ["A", "Swirl Legend"], 3: ["B", "Dependable Dip"], 2: ["C", "Coin Flip"], 1: ["D", "Ask Before You Order"], 0: ["F", "Certified Broken"]};
+  const ROAD = 1.3, FIX_RADIUS = 30;
+  let data = null, here = null, hereLabel = "", rtr = false, sortKey = "score", sortAsc = true, map, layer, youMarker;
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+  const fmt0 = (n) => (n == null ? "–" : Math.round(n).toLocaleString());
+  const fmt1 = (n) => (n == null ? "–" : (Math.round(n * 10) / 10).toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}));
+  const usd = (n) => (n == null ? "–" : "$" + Math.round(n).toLocaleString());
+  const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
+
+  function miles(a, b) {
+    const R = 3958.8, toR = Math.PI / 180;
+    const dLat = (b.lat - a.lat) * toR, dLon = (b.lon - a.lon) * toR;
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * toR) * Math.cos(b.lat * toR) * Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h)) * ROAD;
+  }
+  function duration(min) {
+    if (min == null) return "";
+    const h = Math.floor(min / 60), m = Math.round(min % 60);
+    return h ? `${h}h ${m}m` : `${m}m`;
+  }
+  function status(m) {
+    if (!m.open) return {cls: "off", kind: "off", label: m.status === "TEMP_CLOSED" ? "Temporarily closed" : "Closed", why: "This restaurant isn't open, so the machine's status is academic."};
+    switch (m.state) {
+      case 0: return {cls: "ok", kind: "ok", label: "Swirling", why: "Serving right now. Go, go, go."};
+      case 10: return {cls: "warn", kind: "warn", label: "Cleaning", why: "It's not broken, it's cleaning: the nightly heat-treat cycle can take up to ~4 hours. You'll still be told it's broken."};
+      case 20: return {cls: "warn", kind: "warn", label: "Mix low", why: "Someone's refilling the mix. Give it a few minutes."};
+      case 40: return {cls: "bad", kind: "bad", label: "Broken", why: `Actually broken (Needs Service)${m.downMinutes ? ", down for " + duration(m.downMinutes) : ""}.`};
+      default: return {cls: "off", kind: "off", label: "No signal", why: "No reading from this machine."};
+    }
+  }
+  const color = {ok: "#1F8A47", warn: "#F2A900", bad: "#C8261A", off: "#9C968A"};
+  function gradeBadge(g) {
+    const k = g == null ? "x" : g;
+    return `<span class="grade g${k}" title="${g == null ? "No score yet" : GRADES[g][1]}">${g == null ? "?" : GRADES[g][0]}</span>`;
+  }
+
+  function fixerFor(m) {
+    const cands = data.technicians.filter((t) => t.taylorParts).map((t) => ({...t, d: miles(t, m)})).sort((a, b) => a.d - b.d);
+    const allowed = cands.filter((t) => t.taylorCertified || rtr);
+    const best = allowed[0];
+    const nearest = cands[0];
+    return {best, nearest};
+  }
+  function fixerLine(m) {
+    const {best, nearest} = fixerFor(m);
+    if (!best) return `<div class="fixer blocked">Nobody is allowed to fix it.</div>`;
+    if (!rtr && nearest && !nearest.taylorCertified && nearest.d + 5 < best.d)
+      return `<div class="fixer blocked">🔧 ${esc(nearest.name)} is ${fmt0(nearest.d)} mi away with a Taylor kit on ${esc(nearest.truck)}, but isn't Taylor-certified. Nearest certified tech: ${esc(best.name)}, ${fmt0(best.d)} mi. <a href="#r2r" onclick="document.getElementById('r2r').click();return false">Flip Right to Repair →</a></div>`;
+    const cls = best.d <= FIX_RADIUS ? "go" : "";
+    const why = !best.taylorCertified ? " (thanks to Right to Repair)" : "";
+    return `<div class="fixer ${cls}">🔧 ${esc(best.name)} could fix it today${why}: ${fmt0(best.d)} mi away, kit on ${esc(best.truck)}.</div>`;
+  }
+
+  // ---------- map ----------
+  function initMap() {
+    map = L.map("map", {scrollWheelZoom: false}).setView([34.8, -92.4], 7);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 18,
+    }).addTo(map);
+    layer = L.layerGroup().addTo(map);
+  }
+  function drawMap() {
+    layer.clearLayers();
+    for (const m of data.machines) {
+      const s = status(m);
+      const mk = L.circleMarker([m.lat, m.lon], {radius: s.kind === "ok" ? 7 : 6, color: "#fff", weight: 2, fillColor: color[s.kind], fillOpacity: 1});
+      mk.bindPopup(`<b>${esc(m.city)}</b> · ${esc(m.id)}<br>${esc(m.address)}<br><span class="pill ${s.cls}">${s.label}</span> ${gradeBadge(m.grade).replace('class="grade', 'style="width:24px;height:24px;font-size:13px;vertical-align:middle" class="grade')}<br><span style="color:#5B564B">${esc(s.why)}</span>`);
+      mk.storeId = m.id;
+      mk.addTo(layer);
+    }
+    if (youMarker) youMarker.addTo(map);
+  }
+  function focusStore(id) {
+    layer.eachLayer((l) => { if (l.storeId === id) { map.setView(l.getLatLng(), Math.max(map.getZoom(), 11)); l.openPopup(); } });
+    $("map").scrollIntoView({behavior: "smooth", block: "center"});
+  }
+  window.focusStore = focusStore;
+
+  // ---------- finder ----------
+  function renderFinder(fit) {
+    if (!here || !data) return;
+    const ranked = data.machines.map((m) => ({...m, d: miles(here, m)})).sort((a, b) => a.d - b.d);
+    const working = ranked.filter((m) => m.open && m.state === 0);
+    const w = working[0];
+    const body = $("winner-body");
+    if (!w) { body.innerHTML = "No working machine anywhere in Arkansas. Truly the darkest timeline."; return; }
+    const g = w.grade == null ? null : GRADES[w.grade];
+    body.className = "";
+    body.innerHTML = `
+      <h3>${esc(w.city)}</h3>
+      <div class="addr">${esc(w.address)}, ${esc(w.city)} ${esc(w.zip)} · ${esc(w.phone || "")}</div>
+      <div class="dist">${fmt1(w.d)} mi</div>
+      <div style="color:var(--ink-2);font-weight:700">~${Math.max(1, Math.round((w.d / 40) * 60))} min from ${esc(hereLabel)} · ${esc(w.hours || "")}</div>
+      <div class="row"><span class="pill ok">Swirling now</span>${w.driveThru ? '<span class="pill off">Drive-thru</span>' : ""}</div>
+      <div class="row gradeline">${gradeBadge(w.grade)}<div>${g ? g[1] : "Not graded yet"}<small>Reliability ${fmt1(w.score)} · up ${fmt1(w.uptime7d)}% this week · ${w.failures7d ?? "–"} failures</small></div></div>
+      <div class="row"><a class="btn" style="text-decoration:none" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${w.lat},${w.lon}">Get directions</a>
+      <button class="btn ghost" type="button" onclick="focusStore('${esc(w.id)}')">Show on map</button></div>`;
+    const near = ranked.slice(0, 7).filter((m) => m.id !== w.id).slice(0, 6);
+    $("nearby").innerHTML = `<div style="font-weight:800;margin-top:6px">Also nearby, and the honest truth about each:</div>` +
+      near.map((m) => {
+        const s = status(m);
+        return `<div class="near s-${s.kind}" onclick="focusStore('${esc(m.id)}')">
+          <div class="top"><span class="who">${esc(m.city)} <span style="color:var(--ink-2);font-weight:600">· ${esc(m.address)}</span></span><span class="mi">${fmt1(m.d)} mi</span></div>
+          <div class="why"><span class="pill ${s.cls}">${s.label}</span> ${esc(s.why)}</div>
+          ${m.open && m.state === 40 ? fixerLine(m) : ""}
+        </div>`;
+      }).join("");
+    if (youMarker) youMarker.remove();
+    youMarker = L.marker([here.lat, here.lon], {icon: L.divIcon({className: "", html: '<div class="you"></div>', iconSize: [26, 26], iconAnchor: [13, 26]}), zIndexOffset: 1000}).addTo(map).bindTooltip(hereLabel);
+    if (fit) map.fitBounds(L.latLngBounds([[here.lat, here.lon], [w.lat, w.lon], ...near.slice(0, 4).map((m) => [m.lat, m.lon])]).pad(0.25));
+  }
+  async function findZip(z) {
+    $("msg").textContent = "";
+    if (!/^\d{5}$/.test(z)) { $("msg").textContent = "That doesn't look like a 5-digit ZIP."; return; }
+    const r = await fetch(`/api/zip/${z}`);
+    const j = await r.json();
+    if (!r.ok) { $("msg").textContent = j.error; return; }
+    here = {lat: j.lat, lon: j.lon}; hereLabel = `ZIP ${z}`;
+    $("zip").value = z;
+    renderFinder(true);
+  }
+  $("zipform").addEventListener("submit", (e) => { e.preventDefault(); findZip($("zip").value.trim()); });
+  document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => findZip(c.dataset.zip)));
+  $("locate").addEventListener("click", () => {
+    if (!navigator.geolocation) { $("msg").textContent = "Your browser won't share location."; return; }
+    navigator.geolocation.getCurrentPosition(
+      (p) => { here = {lat: p.coords.latitude, lon: p.coords.longitude}; hereLabel = "you"; $("msg").textContent = ""; renderFinder(true); },
+      () => { $("msg").textContent = "Couldn't get your location. Try a ZIP instead."; });
+  });
+
+  // ---------- statewide ----------
+  function renderStats() {
+    const open = data.machines.filter((m) => m.open);
+    const broken = open.filter((m) => m.state === 40);
+    const heat = open.filter((m) => m.state === 10), low = open.filter((m) => m.state === 20);
+    const hears = open.filter((m) => m.hearsBroken === 1);
+    const serving = open.filter((m) => m.state === 0);
+    const lost = data.machines.reduce((a, m) => a + (m.lostUsd7d || 0), 0);
+    $("answer-big").textContent = broken.length ? `Yes, at ${pct(broken.length, open.length)}% of them.` : "Nope! Miracles happen.";
+    $("answer-sub").innerHTML = `${broken.length} of ${open.length} open restaurants are actually broken right now. Another <b>${heat.length + low.length}</b> will <i>say</i> it's broken, but they're just cleaning or low on mix.`;
+    $("k-broken").textContent = `${pct(broken.length, open.length)}%`;
+    $("k-broken-n").textContent = `${broken.length} of ${open.length} open restaurants in Needs Service`;
+    $("k-hear").textContent = `${pct(hears.length, open.length)}%`;
+    $("k-hear-n").textContent = `${hears.length} restaurants would say "sorry, it's broken"`;
+    $("k-clean").textContent = heat.length + low.length;
+    const hr = Number(new Intl.DateTimeFormat("en-US", {hour: "numeric", hour12: false, timeZone: "America/Chicago"}).format(new Date()));
+    const rush = (hr >= 11 && hr < 14) ? "the lunch rush" : (hr >= 17 && hr < 20) ? "the dinner rush" : null;
+    $("k-clean-n").textContent = `${heat.length} heat-treating, ${low.length} low on mix${rush && heat.length ? `. Yes, heat-treating during ${rush}.` : "."}`;
+    $("k-usd").textContent = usd(lost);
+    const worst = [...data.machines].filter((m) => m.lostUsd7d != null).sort((a, b) => b.lostUsd7d - a.lostUsd7d)[0];
+    $("k-usd-n").textContent = worst ? `≈12 treats/hour × $3.49 while down. Worst: ${worst.city} (${usd(worst.lostUsd7d)})` : "≈12 treats/hour × $3.49 while down";
+    const seg = (n, c) => `<span style="width:${(100 * n) / open.length}%;background:${c}" title="${n}"></span>`;
+    $("gapbar").innerHTML = seg(serving.length, "var(--ok)") + seg(heat.length, "var(--yellow)") + seg(low.length, "#F7DD8A") + seg(broken.length, "var(--bad)");
+    document.querySelector(".gapbar b").textContent = `What ${open.length} open restaurants would tell you right now`;
+  }
+
+  function renderR2R() {
+    const broken = data.machines.filter((m) => m.open && m.state === 40);
+    const count = (allowRtr) => broken.filter((m) => data.technicians.some((t) => t.taylorParts && (t.taylorCertified || allowRtr) && miles(t, m) <= FIX_RADIUS)).length;
+    const off = count(false), on = count(true);
+    $("fix-n").textContent = rtr ? on : off;
+    $("fix-of").textContent = `of ${broken.length} broken ${rtr ? `(was ${off} with certified techs only)` : `(${on} with Right to Repair)`}`;
+    $("r2r-label").textContent = rtr ? "Right to Repair: any technician with the kit" : "Taylor-certified technicians only";
+    const uncert = data.technicians.filter((t) => !t.taylorCertified).map((t) => t.name.split(" ")[0]);
+    $("r2r-text").textContent = rtr
+      ? `${uncert.join(", ")} are now allowed to use the kit already on their vans. Apprentice Cody Whitfield just became Little Rock's ice cream hero.`
+      : `${uncert.length} of ${data.technicians.length} technicians carry the kit but aren't Taylor-certified, so the van drives past the broken machine.`;
+  }
+  $("r2r").addEventListener("change", (e) => { rtr = e.target.checked; renderR2R(); renderFinder(); });
+
+  // ---------- reliability matrix ----------
+  function renderHeat() {
+    const terrs = [...new Set(data.machines.map((m) => m.territory))].sort();
+    const max = Math.max(1, ...terrs.flatMap((t) => [4, 3, 2, 1, 0].map((g) => data.machines.filter((m) => m.territory === t && m.grade === g).length)));
+    const gc = {4: "31,138,71", 3: "109,174,63", 2: "242,169,0", 1: "228,106,27", 0: "200,38,26"};
+    let h = `<tr><th style="text-align:left">Territory</th>${[4, 3, 2, 1, 0].map((g) => `<th>${gradeBadge(g)}<div style="margin-top:4px">${GRADES[g][1]}</div></th>`).join("")}<th>Avg uptime 7d</th><th>Serving 7d</th><th>Lost sales 7d</th></tr>`;
+    for (const t of terrs) {
+      const ms = data.machines.filter((m) => m.territory === t);
+      const avg = (k) => { const v = ms.map((m) => m[k]).filter((x) => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+      h += `<tr><td class="terr">${esc(t)} <span style="color:var(--ink-2);font-weight:600">(${ms.length})</span></td>` +
+        [4, 3, 2, 1, 0].map((g) => { const n = ms.filter((m) => m.grade === g).length; const a = n ? 0.15 + (0.85 * n) / max : 0;
+          return `<td class="cell" style="background:rgba(${gc[g]},${a});color:${a > 0.55 ? "#fff" : "var(--ink)"}">${n || "·"}</td>`; }).join("") +
+        `<td>${fmt1(avg("uptime7d"))}%</td><td>${fmt1(avg("serving7d"))}%</td><td>${usd(ms.reduce((a, m) => a + (m.lostUsd7d || 0), 0))}</td></tr>`;
+    }
+    $("heat").innerHTML = h;
+    const sel = $("f-terr");
+    if (sel.options.length === 1) terrs.forEach((t) => sel.add(new Option(t, t)));
+  }
+  const COLS = [
+    ["id", "Store", (m) => `<b>${esc(m.id)}</b>`],
+    ["city", "City", (m) => esc(m.city)],
+    ["grade", "Grade", (m) => gradeBadge(m.grade)],
+    ["score", "Score", (m) => fmt1(m.score), true],
+    ["uptime24h", "Uptime 24h", (m) => meter(m.uptime24h), true],
+    ["uptime7d", "Uptime 7d", (m) => meter(m.uptime7d), true],
+    ["serving7d", "Serving 7d", (m) => (m.serving7d == null ? "–" : fmt1(m.serving7d) + "%"), true],
+    ["failures7d", "Failures 7d", (m) => m.failures7d ?? "–", true],
+    ["mtbf", "MTBF h", (m) => fmt1(m.mtbf), true],
+    ["mttr", "MTTR h", (m) => fmt1(m.mttr), true],
+    ["state", "Now", (m) => { const s = status(m); return `<span class="pill ${s.cls}">${s.label}${m.open && m.state === 40 && m.downMinutes ? " " + duration(m.downMinutes) : ""}</span>`; }],
+    ["lostUsd7d", "Lost 7d", (m) => usd(m.lostUsd7d), true],
+  ];
+  function meter(v) {
+    if (v == null) return "–";
+    const c = v >= 97 ? "var(--gA)" : v >= 90 ? "var(--gB)" : v >= 80 ? "var(--gC)" : v >= 70 ? "var(--gD)" : "var(--gF)";
+    return `<span class="meter"><b style="width:${Math.max(2, v)}%;background:${c}"></b></span>${fmt1(v)}%`;
+  }
+  function renderTable() {
+    const t = $("f-terr").value, g = $("f-grade").value, q = $("f-q").value.trim().toLowerCase();
+    let rows = data.machines.filter((m) => (!t || m.territory === t) && (g === "" || String(m.grade) === g) &&
+      (!q || m.city.toLowerCase().includes(q) || m.id.toLowerCase().includes(q)));
+    rows.sort((a, b) => {
+      const x = a[sortKey], y = b[sortKey];
+      if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+      return (x < y ? -1 : x > y ? 1 : 0) * (sortAsc ? 1 : -1);
+    });
+    document.querySelector("#machines thead").innerHTML = "<tr>" + COLS.map(([k, label, , num]) =>
+      `<th data-k="${k}" class="${num ? "num" : ""}">${label} ${k === sortKey ? `<span class="arrow">${sortAsc ? "▲" : "▼"}</span>` : ""}</th>`).join("") + "</tr>";
+    document.querySelector("#machines tbody").innerHTML = rows.map((m) =>
+      `<tr onclick="focusStore('${esc(m.id)}')">${COLS.map(([, , f, num]) => `<td class="${num ? "num" : ""}">${f(m)}</td>`).join("")}</tr>`).join("");
+    document.querySelectorAll("#machines th").forEach((th) => th.addEventListener("click", () => {
+      const k = th.dataset.k; if (sortKey === k) sortAsc = !sortAsc; else { sortKey = k; sortAsc = true; } renderTable(); updateShameBtn();
+    }));
+  }
+  function updateShameBtn() {
+    $("shame").textContent = sortKey === "score" && sortAsc ? "Wall of Shame: worst first" : sortKey === "score" ? "Hall of Fame: best first" : "Sort by reliability";
+  }
+  ["f-terr", "f-grade"].forEach((id) => $(id).addEventListener("change", renderTable));
+  $("f-q").addEventListener("input", renderTable);
+  $("shame").addEventListener("click", () => { if (sortKey === "score") sortAsc = !sortAsc; else { sortKey = "score"; sortAsc = true; } renderTable(); updateShameBtn(); });
+
+  // ---------- load ----------
+  async function load() {
+    try {
+      const r = await fetch("/api/state");
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || r.statusText);
+      data = j;
+      $("err").style.display = "none";
+      $("updated").textContent = `Live from Atlas · ${new Date(j.generatedAt).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}`;
+      renderStats(); renderR2R(); drawMap(); renderHeat(); renderTable(); renderFinder();
+    } catch (e) {
+      $("err").textContent = `Couldn't reach Atlas: ${e.message}`;
+      $("err").style.display = "block";
+    }
+  }
+  initMap();
+  const params = new URLSearchParams(location.search);
+  if (params.get("rtr") === "1") { rtr = true; $("r2r").checked = true; }
+  load().then(() => { if (params.get("zip")) findZip(params.get("zip")); });
+  setInterval(load, 60000);
+})();
+</script>
+</body>
+</html>

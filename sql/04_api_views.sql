@@ -22,9 +22,7 @@ JOIN ref.operating_status os ON os.operating_status_code = s.operating_status_co
 JOIN ref.location_type lt   ON lt.location_type_code = s.location_type_code
 WHERE NOT s.is_deleted;
 
-CREATE OR REPLACE VIEW api.v_equipment_class AS
-SELECT equipment_class_code, name, tag_segment, modified_utc, row_version
-FROM ref.equipment_class WHERE NOT is_deleted;
+-- api.v_equipment_class lives in 09_api_views_service.sql (it carries the health/consequence columns).
 
 GRANT USAGE ON SCHEMA api TO mcd_reader;
 GRANT SELECT ON ALL TABLES IN SCHEMA api TO mcd_reader;

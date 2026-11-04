@@ -1,0 +1,51 @@
+[
+  {
+    "id": "road-distance",
+    "name": "Store road distance to Store",
+    "type": "urn:atlas:ontology:mcdonalds:roadDistanceTo",
+    "instanceId": "road-[F]-[T]",
+    "sources": {
+      "p": {
+        "bindingPath": "con_c10edc/StoreDistances"
+      }
+    },
+    "map": [
+      {
+        "name": "F",
+        "data": "[p.from_store_id]",
+        "wrap": false
+      },
+      {
+        "name": "T",
+        "data": "[p.to_store_id]",
+        "wrap": false
+      },
+      {
+        "name": "Rm",
+        "data": "[p.road_miles]",
+        "wrap": false
+      },
+      {
+        "name": "Dm",
+        "data": "[p.drive_minutes]",
+        "wrap": false
+      }
+    ],
+    "properties": {
+      "urn:atlas:ontology:mcdonalds:RoadMiles": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Rm]"
+        }
+      ],
+      "urn:atlas:ontology:mcdonalds:DriveMinutes": [
+        {
+          "type": "StaticStrategy",
+          "value": "[Dm]"
+        }
+      ]
+    },
+    "source": "[F]",
+    "target": "[T]"
+  }
+]
