@@ -64,6 +64,11 @@ A code of 40 or above means the store already knows something is wrong (service 
   fault at the same store, and a power outage at one store does not affect its neighbours.
 - **State tags only change on transitions.** A generator in standby writes nothing for days. The health job
   re-stamps long-held states so Atlas never reads them as blank (see "State heartbeat" in the main README).
+- **A Collector restart sends every unit back to the first step of its loop** (seen on 2.0-gc6 and 2.0.0; the saved
+  state keeps the timeline but not the position in the loop). Because each loop ends with its fault step, nothing
+  faults for a while after a restart: about a day for at-risk coolers, freezers and HVAC, 2 days for unreliable ice
+  cream machines, up to 5 days for healthy units. Drifting (Warning/Danger) units still show, because they are
+  about temperatures, not faults. Avoid restarting the Collector shortly before a demo.
 - **The store lists are hard-coded** in each sequence's `map`. They must match `org.store` in Postgres. If stores are
   added or removed, update the lists so every store number appears in exactly one sequence per class.
 
