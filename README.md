@@ -6,6 +6,7 @@ matrix and consequence-weighted detour stops.
 
 | Piece | Where |
 |---|---|
+| Equipment data | Timebase Data Collector (https://localhost:4522), Simulator collector `McDonalds`: 1,719 live tags for 191 stores × 5 equipment types into Historian dataset `McDonalds`, with a healthy and an at-risk population per type. Config in `simulator/mcdonalds.simulator.json`, explained in [`simulator/README.md`](simulator/README.md); sync with `tools/simulator_config.py diff\|export\|apply` |
 | Postgres DB | `mcdonalds_ar` in container `bible-pg` (localhost:5433). Owner `mcd_admin`, read-only `mcd_reader` (api views only). Passwords in `mcd.env` (gitignored) |
 | Schemas | `util` (audit plumbing), `ref` (vocabularies, equipment health/consequence settings, certifications, parts, repair tasks), `org` (territory, store), `hr` (technician, technician_certification), `fleet` (truck, truck_assignment, truck_par_level, truck_inventory_daily, route_setting, route_stop, route_leg), `geo` (store_distance), `api` (views Connect polls) |
 | Connect | `mcd-pg` = `con_c10edc` (14 topics: Territories, Stores, EquipmentClasses, Certifications, Parts, RepairTasks, RepairTaskCertifications, RepairTaskParts, Technicians, TechnicianCertifications, Trucks, TruckAssignments, TruckInventory, StoreDistances, plus 5 per-truck GPS templates `Truck{Latitude,Longitude,Status,CurrentStore,NextStore}/[TruckId]` polled every minute); `mcd-historian` = `con_faabed` (dataset `McDonalds`, template `con_faabed/McDonalds/[Tag]`) |
@@ -17,6 +18,7 @@ matrix and consequence-weighted detour stops.
 | Store Monitor | Second tab, http://127.0.0.1:8787/#monitor. Watch one store, a territory, your own fleet (saved in the browser) or all stores; live values from Atlas, 6 h–7 days of history from the Historian. Link format `#monitor?scope=store&store=AR-20031&h=72&eq=COOLER,HVAC&focus=AR-20031.HVAC&cmp=AR-20012`. Code in `dashboard/monitor.js`; endpoints `/api/monitor/*` in `server.py` |
 
 ## Rebuild
+- Equipment simulator: `tools/simulator_config.py diff` (repo vs live Collector), `export`, or `apply` (writes the repo config into the Collector; see `simulator/README.md`)
 - DB: `./build.sh` (idempotent; ends with `sql/verify_org.sql` (20 checks) and `sql/verify_service.sql` (47 checks), all rows must say PASS)
 - Seed refresh from grit: `tools/grit_cypher.py` export → `seed/stores_grit.csv`, then `tools/grit_store_defs.py` (exact coords from definitions), `tools/gen_org_data.py`
 - Connect sources: `tools/connect_setup.py` (matches on alias). On gc6 the connector API moved to `/app/connectors`, which only accepts a signed-in browser session, so the tool writes Connect's own `/connect/config/connector.config` instead: backup to `~/timebase/backups/`, stop the container, replace the two connectors' settings, start it, restore owner uid 1654 + mode 600 (Connect refuses to start if it cannot read the file). Creating a brand-new connector still needs the UI once
@@ -60,7 +62,7 @@ always has 5 days left. Stored rows never change. The health job recompiles the 
 which is how Atlas picks up the shifted dates.
 
 ## The ice cream machine (soft serve)
-- The simulator already splits machines into `SoftServe_Reliable` (96 stores, one fault every ~2 weeks) and `SoftServe_Unreliable` (95 stores, 2-3 faults a week, 8-24 h each).
+- The simulator already splits machines into `SoftServe_Reliable` (96 stores, one fault about every 10 days) and `SoftServe_Unreliable` (95 stores, 2-3 faults a week, 8-24 h each).
 - `health_baseline.py` derives, per machine, from 7 days of `SoftServe.State`: `Uptime24h`, `Uptime7d` (% not in Needs Service), `Serving7d` (% actually serving), `Failures7d`, `MtbfHours`, `MttrHours`, `DownMinutes` (current outage), `DownHours7d`.
 - Atlas: `ReliabilityScoreOf` = 70% × Uptime7d + 30% × Uptime24h; `ReliabilityGradeOf` A ≥ 97 Swirl Legend · B ≥ 90 Dependable Dip · C ≥ 80 Coin Flip · D ≥ 70 Ask Before You Order · F Certified Broken; `LostSalesUsdOf` = DownHours7d × $42/h (≈12 treats × $3.49); `IsServingOf`; `CustomerHearsBrokenOf` = heat treat, mix low or Needs Service ("it's not broken, it's cleaning").
 - Right to Repair: only TECH-001/008/011 are Taylor-certified (the rest withdrawn in `11_softserve.sql`), but every van carries the Taylor kit. `detour_stops.cypher` includes broken soft serve machines and takes `$rightToRepair`; the dashboard toggle does the same (7 → 17 fixable within 30 mi on 2026-11-01 evening).
