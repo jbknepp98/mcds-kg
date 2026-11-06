@@ -32,14 +32,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "BaselineMean",
       "rdfs:comment": "Reference the hourly average is compared with: mean of the unit's hourly steady-state means over 3 days, or the class normal when BaselineMode = 0. Recomputed hourly.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:BaselineMode",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "BaselineMode",
       "rdfs:comment": "BaselineModeEnum: 1 = own 3-day baseline, 0 = defined normal operation (too little variation in 3 days, e.g. a generator that sat in standby).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:BaselineModeEnum",
@@ -58,7 +74,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "BaselineStdDev",
       "rdfs:comment": "Spread of the baseline (stdev of hourly means, floored at half the normal tolerance; the normal tolerance when BaselineMode = 0).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:CertLevel",
@@ -191,7 +215,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "CoolerHealthIndex",
       "rdfs:comment": "Health matrix: the store's cooler HealthIndex.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:County",
@@ -201,11 +233,34 @@
       "rdfs:range": {"@id": "xsd:string"}
     },
     {
+      "@id": "mcdonalds:CurrentStoreId",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "CurrentStoreId",
+      "rdfs:comment": "Store the truck is parked at now; empty while driving.",
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:string"}}
+          ]
+        }
+      }
+    },
+    {
       "@id": "mcdonalds:CustomerHearsBroken",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "CustomerHearsBroken",
       "rdfs:comment": "1 when a customer asking for a McFlurry would be told the machine is broken: heat treat (10), mix low (20) or Needs Service (40). It's not always broken - sometimes it's cleaning.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:CustomerHearsBrokenOf",
@@ -248,7 +303,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "DetourAllowanceMiles",
       "rdfs:comment": "Extra road miles worth driving to fix this unit now: MaxDetourMiles x urgency, where urgency rises from 0 at health index 100 to 1 at 40 and below. 0 for healthy units and detected faults (soft serve faults excepted, for fun).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:DetourAllowanceMilesOf",
@@ -305,14 +368,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "DownHours7d",
       "rdfs:comment": "Hours in fault over the last 7 days.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:DownMinutes",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "DownMinutes",
       "rdfs:comment": "Length of the current outage in minutes (0 when not faulted).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:DowntimeRevenuePerHourUsd",
@@ -374,7 +453,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "ExposureUsd",
       "rdfs:comment": "Product or cost at risk if the undetected issue is not caught: ProductAtRiskUsd x urgency.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:ExposureUsdOf",
@@ -431,7 +518,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "Failures7d",
       "rdfs:comment": "Times the machine went into Needs Service in the last 7 days.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:FaultDetourAllowanceMilesOf",
@@ -488,7 +583,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "FreezerHealthIndex",
       "rdfs:comment": "Health matrix: the store's freezer HealthIndex.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:Generator",
@@ -559,14 +662,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "GeneratorHealthIndex",
       "rdfs:comment": "Health matrix: the store's generator HealthIndex.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:GeneratorState",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "GeneratorState",
       "rdfs:comment": "Live state from <StoreId>.Generator.State.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:GeneratorStateEnum",
@@ -582,18 +701,64 @@
       ]
     },
     {
+      "@id": "mcdonalds:GpsLatitude",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "GpsLatitude",
+      "rdfs:comment": "Live GPS latitude of the truck (decimal degrees), from Postgres api.v_truck_position_live polled by Connect every minute.",
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
+    },
+    {
+      "@id": "mcdonalds:GpsLongitude",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "GpsLongitude",
+      "rdfs:comment": "Live GPS longitude of the truck (decimal degrees), from Postgres api.v_truck_position_live.",
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
+    },
+    {
       "@id": "mcdonalds:HVACHealthIndex",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "HVACHealthIndex",
       "rdfs:comment": "Health matrix: the store's HVAC HealthIndex.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:HVACState",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "HVACState",
       "rdfs:comment": "Live state from <StoreId>.HVAC.State.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:HVACStateEnum",
@@ -713,7 +878,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "HealthIndex",
       "rdfs:comment": "0-100. HealthIndex(HourlyAverage vs own baseline and vs design normal, worse of the two). 70+ Healthy, 40-70 Warning, below 40 Danger.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:HealthIndexOf",
@@ -816,7 +989,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "HourlyAverage",
       "rdfs:comment": "Mean of the most recent hour of steady-state operation of the unit's health signal (tag <StoreId>.<Class>.<Signal>Avg1h, written every 5 min by tools/health_baseline.py).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:IndexPassThrough",
@@ -886,7 +1067,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "IsServing",
       "rdfs:comment": "1 when the machine is serving right now (state 0), else 0.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:IsServingOf",
@@ -955,14 +1144,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "LoadPercent",
       "rdfs:comment": "Generator load in % from <StoreId>.Generator.LoadPercent.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:LoadPercentHealth",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "LoadPercentHealth",
       "rdfs:comment": "ClassifyHealth of LoadPercent (healthy < 80, danger >= 90).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:LocationType",
@@ -996,7 +1201,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "LostSalesUsd7d",
       "rdfs:comment": "Treat sales lost to faults over the last 7 days: DownHours7d x DowntimeRevenuePerHourUsd.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:LostSalesUsdOf",
@@ -1077,14 +1290,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "MtbfHours",
       "rdfs:comment": "Mean time between failures over the last 7 days, hours (168 when no failures).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:MttrHours",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "MttrHours",
       "rdfs:comment": "Mean time to repair over the last 7 days, hours.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:Name",
@@ -1092,6 +1321,21 @@
       "rdfs:label": "Name",
       "rdfs:comment": "Display name.",
       "rdfs:range": {"@id": "xsd:string"}
+    },
+    {
+      "@id": "mcdonalds:NextStoreId",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "NextStoreId",
+      "rdfs:comment": "Where the truck is heading next (while driving or on site); empty when off duty.",
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:string"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:NormalTolerance",
@@ -1264,7 +1508,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "RefrigerationState",
       "rdfs:comment": "Live state from <StoreId>.Cooler.State / .Freezer.State.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:RefrigerationStateEnum",
@@ -1291,7 +1543,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "ReliabilityGrade",
       "rdfs:comment": "ReliabilityGradeEnum: 4 A Swirl Legend, 3 B Dependable Dip, 2 C Coin Flip, 1 D Ask Before You Order, 0 F Certified Broken.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:ReliabilityGradeEnum",
@@ -1349,7 +1609,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "ReliabilityScore",
       "rdfs:comment": "0-100, from uptime: 70% x Uptime7d + 30% x Uptime24h.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:ReliabilityScoreOf",
@@ -1469,7 +1737,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "ServiceCondition",
       "rdfs:comment": "ServiceConditionEnum: 0 Healthy, 1 Warning (undetected), 2 Danger (undetected), 3 Fault (detected: a fault state is showing).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:ServiceConditionEnum",
@@ -1564,6 +1840,31 @@
           "@type": "owl:Restriction",
           "owl:onProperty": {"@id": "mcdonalds:LicensePlate"},
           "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:GpsLatitude"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:GpsLongitude"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:TruckStatus"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:CurrentStoreId"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
+        },
+        {
+          "@type": "owl:Restriction",
+          "owl:onProperty": {"@id": "mcdonalds:NextStoreId"},
+          "owl:minCardinality": {"@type": "xsd:nonNegativeInteger", "@value": "0"}
         }
       ]
     },
@@ -1572,7 +1873,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "Serving7d",
       "rdfs:comment": "% of the last 7 days actually serving (state 0). Heat treat and mix low count against it: what customers experience.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:SoftServeConditionOf",
@@ -1699,7 +2008,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "SoftServeState",
       "rdfs:comment": "Live state from <StoreId>.SoftServe.State.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:SoftServeStateEnum",
@@ -1911,7 +2228,15 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "StoreHealthIndex",
       "rdfs:comment": "Worst of the store's four equipment health indexes.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:StoreId",
@@ -1932,14 +2257,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "SupplyAirTemperature",
       "rdfs:comment": "Supply air temperature in °F from <StoreId>.HVAC.SupplyAirTemperature.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:SupplyAirTemperatureHealth",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "SupplyAirTemperatureHealth",
       "rdfs:comment": "ClassifyHealth of SupplyAirTemperature (healthy < 72, danger >= 80).",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:Symptom",
@@ -1997,14 +2338,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "Temperature",
       "rdfs:comment": "Box temperature in °F from <StoreId>.Cooler.Temperature / .Freezer.Temperature.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:TemperatureHealth",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "TemperatureHealth",
       "rdfs:comment": "ClassifyHealth of Temperature against the unit's thresholds.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:Territory",
@@ -2039,6 +2396,21 @@
       "rdfs:range": {"@id": "xsd:string"}
     },
     {
+      "@id": "mcdonalds:TruckStatus",
+      "@type": "owl:ObjectProperty",
+      "rdfs:label": "TruckStatus",
+      "rdfs:comment": "Live truck status: 0 Off duty (parked at the technician's home store), 10 Driving, 20 On site, 30 Lunch.",
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
+    },
+    {
       "@id": "mcdonalds:UnitCostUsd",
       "@type": "owl:DatatypeProperty",
       "rdfs:label": "UnitCostUsd",
@@ -2049,14 +2421,30 @@
       "@type": "owl:ObjectProperty",
       "rdfs:label": "Uptime24h",
       "rdfs:comment": "% of the last 24 h NOT in a fault (Needs Service). Tag <StoreId>.SoftServe.Uptime24h, written by tools/health_baseline.py.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:Uptime7d",
       "@type": "owl:ObjectProperty",
       "rdfs:label": "Uptime7d",
       "rdfs:comment": "% of the last 7 days NOT in a fault.",
-      "rdfs:range": {"@id": "atlas-common:TVQ"}
+      "rdfs:range": {
+        "@type": "owl:Class",
+        "owl:intersectionOf": {
+          "@list": [
+            {"@id": "atlas-common:TVQ"},
+            {"@type": "owl:Restriction", "owl:onProperty": {"@id": "atlas-common:Value"}, "owl:allValuesFrom": {"@id": "xsd:double"}}
+          ]
+        }
+      }
     },
     {
       "@id": "mcdonalds:WorstHealthIndex",

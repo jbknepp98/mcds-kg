@@ -38,11 +38,24 @@ WITH c(check_name, actual, expected) AS (VALUES
  ('soft serve downtime $/hour', (SELECT downtime_revenue_per_hour_usd::text FROM ref.equipment_class WHERE equipment_class_code = 'SOFTSERVE'), '42.00'),
  ('Arkansas ZIP centroids', (SELECT count(*) FROM geo.zip_code)::text, '615'),
  ('store ZIPs without a centroid', (SELECT count(*) FROM org.store s WHERE NOT EXISTS (SELECT 1 FROM geo.zip_code z WHERE z.zip = s.zip))::text, '0'),
+ ('route plan: tech-days', (SELECT count(DISTINCT (technician_id, rotation_day)) FROM fleet.route_stop WHERE NOT is_deleted)::text, '270'),
+ ('route plan: stops / legs', (SELECT count(*) FROM fleet.route_stop WHERE NOT is_deleted)::text || ' / ' || (SELECT count(*) FROM fleet.route_leg WHERE NOT is_deleted)::text, '1771 / 1231'),
+ ('route plan: no weekend driving', (SELECT count(*) FROM fleet.route_stop WHERE NOT is_deleted AND rotation_day % 7 >= 5)::text, '0'),
+ ('route plan: days end 15:00-17:45', (SELECT count(*) FROM fleet.route_stop WHERE NOT is_deleted AND stop_kind = 'END' AND arrive_sec NOT BETWEEN 15*3600 - 60 AND 17*3600 + 45*60)::text, '0'),
+ ('route plan: every leg starts and ends at its stores', (SELECT count(*) FROM fleet.route_leg l JOIN org.store a ON a.store_id = l.from_store_id JOIN org.store b ON b.store_id = l.to_store_id
+      WHERE NOT l.is_deleted AND (abs(l.lat[1] - a.latitude::float8) > 0.01 OR abs(l.lat[cardinality(l.lat)] - b.latitude::float8) > 0.01))::text, '0'),
+ ('TECH-001 Thursday 10:40 (rotation day 3)', (SELECT status || ' ' || coalesce(store_id, '') FROM fleet.truck_position_at('2026-11-05 10:40 America/Chicago') WHERE technician_id = 'TECH-001'), 'On site AR-20191'),
+ ('Saturday: all 18 vans off duty', (SELECT count(*) FROM fleet.truck_position_at('2026-11-07 10:40 America/Chicago') WHERE status = 'Off duty')::text, '18'),
+ ('live view has 18 vans', (SELECT count(*) FROM api.v_truck_position_live)::text, '18'),
+ ('cert dates roll with the calendar: Curtis REFRIG days left', (SELECT days_to_expiry::text FROM api.v_technician_certification_live WHERE technician_certification_id = 'TECH-013|REFRIG'), '5'),
+ ('cert dates roll with the calendar: expiry = today + days left', (SELECT count(*) FROM api.v_technician_certification_live WHERE expires_date IS DISTINCT FROM current_date + days_to_expiry)::text, '0'),
+ ('certs lapsed (live)', (SELECT string_agg(technician_certification_id, ',') FROM api.v_technician_certification_live WHERE NOT is_current), 'TECH-002|GEN'),
  ('zero row_version', (SELECT count(*) FROM (
       SELECT row_version FROM hr.technician UNION ALL SELECT row_version FROM hr.technician_certification
       UNION ALL SELECT row_version FROM fleet.truck UNION ALL SELECT row_version FROM fleet.truck_assignment
       UNION ALL SELECT row_version FROM fleet.truck_par_level UNION ALL SELECT row_version FROM fleet.truck_inventory_daily
       UNION ALL SELECT row_version FROM geo.store_distance UNION ALL SELECT row_version FROM ref.repair_task
-      UNION ALL SELECT row_version FROM ref.part) x WHERE row_version = 0)::text, '0')
+      UNION ALL SELECT row_version FROM ref.part UNION ALL SELECT row_version FROM fleet.route_stop
+      UNION ALL SELECT row_version FROM fleet.route_leg) x WHERE row_version = 0)::text, '0')
 )
 SELECT CASE WHEN actual = expected THEN 'PASS' ELSE 'FAIL' END AS result, check_name, actual, expected FROM c;

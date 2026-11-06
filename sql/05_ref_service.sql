@@ -186,3 +186,15 @@ SELECT t || '|' || p, t, p, q FROM (VALUES
 ) v(t, p, q)
 ON CONFLICT (repair_task_part_id) DO UPDATE SET quantity = EXCLUDED.quantity
   WHERE ref.repair_task_part.quantity IS DISTINCT FROM EXCLUDED.quantity;
+
+-- The demo anchor: the date every seeded date was written against. Clock-relative (*_live) views shift seeded dates
+-- by (current_date - anchor_date), so the story the data tells (who is expiring soon, what has lapsed) stays the same
+-- every day the demo is opened instead of drifting as the calendar moves.
+CREATE TABLE IF NOT EXISTS ref.demo_setting (
+  demo_setting_id text PRIMARY KEY CHECK (demo_setting_id = 'DEFAULT'),
+  anchor_date     date NOT NULL
+);
+CALL util.add_audit('ref.demo_setting');
+INSERT INTO ref.demo_setting VALUES ('DEFAULT', '2026-11-01')
+ON CONFLICT (demo_setting_id) DO UPDATE SET anchor_date = EXCLUDED.anchor_date
+  WHERE ref.demo_setting.anchor_date IS DISTINCT FROM EXCLUDED.anchor_date;

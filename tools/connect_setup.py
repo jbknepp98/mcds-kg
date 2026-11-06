@@ -32,15 +32,64 @@ pg = {"Settings": {
         "TruckAssignments": q("SELECT truck_id, technician_id, to_char(start_date, 'YYYY-MM-DD') AS start_date FROM api.v_truck_assignment WHERE is_current ORDER BY truck_assignment_id"),
         "TruckInventory": q("SELECT truck_id, part_number, quantity_on_hand, par_quantity, to_char(inventory_date, 'YYYY-MM-DD') AS inventory_date FROM api.v_truck_inventory_current ORDER BY truck_part_id"),
         "StoreDistances": q("SELECT store_distance_id, from_store_id, to_store_id, road_miles, drive_minutes FROM api.v_store_distance ORDER BY store_distance_id"),
+        # Live truck GPS (sql/13_routes.sql). Position, status and current store are served from each truck's 7-day
+        # road trail as a time series (watermark on "Timestamp"), so Atlas UNWIND returns the route history; the next
+        # stop has no history and is re-polled from the live view.
+        **{f"Truck{sig}/[TruckId]": {
+            "Sql": f'SELECT ts_utc AS "Timestamp", {col} AS "Value", \'Good\'::text AS "Quality" FROM api.v_truck_track_recent WHERE truck_id = @TruckId',
+            "Parameters": {"TruckId": "string"},
+            "Subscription": {"PollInterval": "00:01:00", "WatermarkColumn": "Timestamp"}}
+           for sig, col in [("Latitude", "latitude"), ("Longitude", "longitude"), ("Status", "status_code::double precision"),
+                            ("CurrentStore", "coalesce(store_id, \'\')")]},
+        "TruckNextStore/[TruckId]": {
+            "Sql": 'SELECT as_of_utc AS "Timestamp", coalesce(next_store_id, \'\') AS "Value", \'Good\'::text AS "Quality" FROM api.v_truck_position_live WHERE truck_id = @TruckId',
+            "Parameters": {"TruckId": "string"},
+            "Subscription": {"PollInterval": "00:01:00"}},
     }}}
 hist = {"Settings": {
     "Host": "historian", "Port": 4512, "UseTls": True, "ClientName": "Timebase.Connect.McDonalds",
     "Auth": {"Mode": "Host"},
     "Datasets": {"McDonalds": {"Dataset": "McDonalds"}},
     "DefaultLookback": "01:00:00"}}   # 1 h seed after an Atlas restart; health_baseline.py heartbeats long-held state tags to stay inside it
+CONTAINER, CFG = "timebase-2-0-beta-connect-1", "/connect/config/connector.config"
+
+
+def apply_via_config_file(items):
+    """Connect gc6 moved connector management to /app/connectors, which accepts only a signed-in browser session.
+    Update the existing connectors in Connect's own config file instead: stop the container (so shutdown cannot
+    rewrite the file), replace each connector's settings, start it again. Backs the old file up first."""
+    import datetime, tempfile
+    raw = subprocess.run(["docker", "exec", CONTAINER, "cat", CFG], capture_output=True, text=True, check=True).stdout
+    bak = os.path.expanduser(f"~/timebase/backups/connect-connector.config.{datetime.datetime.now():%Y%m%d-%H%M%S}.bak")
+    os.makedirs(os.path.dirname(bak), exist_ok=True)
+    open(bak, "w").write(raw)
+    cfg = json.loads(raw)
+    by_alias = {c.get("alias"): cid for cid, c in cfg["connectors"].items()}
+    for alias, _name, typ, settings in items:
+        if alias not in by_alias:
+            sys.exit(f"{alias} does not exist yet; create it once in the Connect UI ({typ}), then re-run")
+        cfg["connectors"][by_alias[alias]]["config"] = settings["Settings"]
+        cfg["connectors"][by_alias[alias]]["enabled"] = True
+        print("updated", alias, by_alias[alias], "(config file)")
+    with tempfile.NamedTemporaryFile("w", suffix=".config", delete=False) as f:
+        json.dump(cfg, f, indent=2)
+    os.chmod(f.name, 0o644)             # docker cp keeps the host owner and mode; Connect (uid 1654) must be able to read it
+    subprocess.run(["docker", "stop", "-t", "30", CONTAINER], check=True, capture_output=True)
+    subprocess.run(["docker", "cp", f.name, f"{CONTAINER}:{CFG}"], check=True)
+    subprocess.run(["docker", "start", CONTAINER], check=True, capture_output=True)
+    subprocess.run(["docker", "exec", "-u", "0", CONTAINER, "sh", "-c", f"chown 1654:1654 {CFG} && chmod 600 {CFG}"], check=True)
+    os.unlink(f.name)
+    print("Connect restarted; backup at", bak)
+
+
+ITEMS = [("mcd-pg", "mcdonalds-postgres", "PGDG.PostgreSql", pg),
+         ("mcd-historian", "mcdonalds-historian", "Timebase.Historian", hist)]
+probe = subprocess.run([TB, "GET", BASE], capture_output=True, text=True).stdout
+if probe.rstrip().endswith("HTTP 404"):
+    apply_via_config_file(ITEMS)
+    sys.exit(0)
 existing = {c["alias"]: c for c in call("GET", BASE)}
-for alias, name, typ, settings in [("mcd-pg", "mcdonalds-postgres", "PGDG.PostgreSql", pg),
-                                   ("mcd-historian", "mcdonalds-historian", "Timebase.Historian", hist)]:
+for alias, name, typ, settings in ITEMS:
     if alias in existing:
         cid = existing[alias]["id"]
         call("PUT", f"{BASE}/{cid}/settings", settings)

@@ -52,15 +52,23 @@ JOIN ref.cert_level cl ON cl.cert_level_code = t.cert_level_code
 LEFT JOIN fleet.truck_assignment ta ON ta.technician_id = t.technician_id AND ta.end_date IS NULL AND NOT ta.is_deleted
 WHERE NOT t.is_deleted;
 
--- Clock-relative: is_current compares expiry to today.
-CREATE OR REPLACE VIEW api.v_technician_certification_live AS
+-- Clock-relative: certificate dates roll forward with the calendar. Stored dates are written against the demo anchor
+-- (ref.demo_setting, 2026-11-01); this view adds (current_date - anchor) to them, so a certificate that expires 5 days
+-- after the anchor always shows as expiring in 5 days and the lapsed ones stay lapsed by the same margin.
+-- is_current and days_to_expiry are therefore the same every day.
+DROP VIEW IF EXISTS api.v_technician_certification_live;
+CREATE VIEW api.v_technician_certification_live AS
 SELECT tc.technician_certification_id, tc.technician_id, tc.certification_code, c.name AS certification,
-       tc.certificate_number, tc.issued_date, tc.expires_date,
-       (tc.expires_date IS NULL OR tc.expires_date >= current_date) AS is_current,
+       tc.certificate_number,
+       tc.issued_date + (current_date - d.anchor_date) AS issued_date,
+       tc.expires_date + (current_date - d.anchor_date) AS expires_date,
+       (tc.expires_date IS NULL OR tc.expires_date >= d.anchor_date) AS is_current,
+       tc.expires_date - d.anchor_date AS days_to_expiry,
        tc.modified_utc, tc.row_version
 FROM hr.technician_certification tc
 JOIN ref.certification c ON c.certification_code = tc.certification_code
-WHERE NOT tc.is_deleted;
+CROSS JOIN ref.demo_setting d
+WHERE NOT tc.is_deleted AND d.demo_setting_id = 'DEFAULT';
 
 CREATE OR REPLACE VIEW api.v_truck AS
 SELECT f.truck_id, f.make, f.model, f.model_year, f.license_plate, f.home_territory_id,

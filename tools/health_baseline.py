@@ -70,7 +70,10 @@ def curl(tok, method, url, body=None):
     cmd = ["curl", "-sk", "-X", method, "-H", "Authorization: " + tok, "--max-time", "300"]
     if body is not None:
         cmd += ["-H", "Content-Type: application/json", "--data-binary", "@-"]
-    out = subprocess.run(cmd + [url], input=body, capture_output=True, text=True, check=True).stdout
+    p = subprocess.run(cmd + [url], input=body, capture_output=True, text=True)
+    if p.returncode:   # never let the command line (it holds the bearer token) reach a traceback or log
+        raise RuntimeError(f"curl {method} {url.split('?')[0]} failed with exit code {p.returncode}") from None
+    out = p.stdout
     return json.loads(out) if out.strip() else None
 
 
@@ -94,6 +97,19 @@ def read(tok, tags, start, end):
         name = tl["t"] if isinstance(tl["t"], str) else tl["t"].get("n")
         res[name] = [(parse(p["t"]), p["v"]) for p in tl.get("d", []) if isinstance(p.get("v"), (int, float))]
     return res
+
+
+def blanked(tok, tags, now):
+    """Tags whose newest point in the last 2 h carries no value (e.g. the marker a Historian writes on shutdown)."""
+    out = set()
+    for i in range(0, len(tags), 50):
+        q = urllib.parse.urlencode([("tagname", t) for t in tags[i:i + 50]]
+                                   + [("start", iso(now - dt.timedelta(hours=2))), ("end", iso(now))])
+        for tl in (curl(tok, "GET", HIST + "/data?" + q) or {}).get("tl", []):
+            pts = tl.get("d", [])
+            if pts and not isinstance(pts[-1].get("v"), (int, float)):
+                out.add(tl["t"] if isinstance(tl["t"], str) else tl["t"].get("n"))
+    return out
 
 
 def steady_samples(signal, states, codes):
@@ -175,14 +191,15 @@ def softserve_metrics(states, at):
             "DownHours7d": round(hours7 * fault7, 2)}
 
 
-def heartbeat(tok, last_state, now, payload):
+def heartbeat(tok, last_state, now, payload, blank=frozenset()):
     """Re-stamp each equipment State tag's held value at `now` when its last point is older than HEARTBEAT.
 
     The simulator writes a state tag only when the state changes, and Connect seeds a new Atlas subscription with
     the last hour only. After an Atlas restart, any unit whose state has held for over an hour (generators in
     standby for days, an ice cream machine in a long outage) reads blank until its next change. Writing the same
     value again changes nothing in the step-held state history (every metric here counts transitions), and keeps a
-    point inside that hour for every tag.
+    point inside that hour for every tag. A tag whose newest point is a no-value marker (the Historian writes one on
+    every tag when it shuts down) is re-stamped too, whatever its age, or Atlas reads it as blank.
     """
     missing = [n for n, p in last_state.items() if p is None]
     for i in range(0, len(missing), 40):
@@ -192,7 +209,7 @@ def heartbeat(tok, last_state, now, payload):
             last_state[n] = pts[-1] if pts else None
     stamped = 0
     for n, p in last_state.items():
-        if p and now - p[0] > HEARTBEAT:
+        if p and (now - p[0] > HEARTBEAT or n in blank):
             payload.setdefault(n, []).append({"t": iso(now), "v": p[1], "q": 192})
             stamped += 1
     return stamped
@@ -217,6 +234,17 @@ def main():
                    "FROM ref.equipment_class WHERE health_signal IS NOT NULL AND NOT is_deleted ORDER BY 1")
     stores = [r[0] for r in psql("SELECT store_id FROM org.store WHERE NOT is_deleted ORDER BY 1")]
 
+    tok = token()
+    # After a Historian restart every tag ends in a no-value marker: re-stamp state tags, and recompute baselines now
+    # (they are otherwise written hourly, so health would read blank for up to an hour).
+    blank = set()
+    if not a.backfill:
+        segs = [r[0] for r in classes]
+        blank = blanked(tok, [f"{s}.{g}.State" for s in stores for g in segs + ["SoftServe"]]
+                        + [f"{s}.{g}.{sig}BaselineMean" for s in stores for g, sig, *_ in classes], now)
+        if any(b.endswith("BaselineMean") for b in blank):
+            do_base = True
+
     # time points to write
     avg_points = [now]
     base_points = [now] if do_base else []
@@ -230,7 +258,6 @@ def main():
     # Baselines need 3 days behind the earliest point; an Avg1h-only run looks back 12 h for the last steady hour.
     reach = dt.timedelta(days=BASELINE_DAYS) if base_points else dt.timedelta(hours=12)
     read_from = min(avg_points + base_points) - reach
-    tok = token()
     payload, summary, last_state = {}, {}, {}
     for seg, sig, codes, normal, tol in classes:
         codes = {int(c) for c in codes.split(",")}
@@ -281,7 +308,8 @@ def main():
     summary["SoftServe"] = {"machines": len(grades), "uptime7d<90": sum(1 for g in grades if g < 90)}
 
     if not a.backfill:
-        summary["heartbeat"] = heartbeat(tok, last_state, now, payload)
+        summary["heartbeat"] = heartbeat(tok, last_state, now, payload, blank)
+        summary["blank"] = len(blank)
 
     points = sum(len(v) for v in payload.values())
     print(f"{iso(now)} tags={len(payload)} points={points} baseline={'yes' if base_points else 'no'} modes={summary}")

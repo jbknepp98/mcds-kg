@@ -12,7 +12,7 @@
       "@id": "urn:atlas:ontology:mcdonalds-ops",
       "@type": "owl:Ontology",
       "rdfs:label": "Mcdonalds Ops Domain",
-      "rdfs:comment": "McDonald's Arkansas operations: the enterprise, 6 territories, 191 restaurants (from Postgres mcdonalds_ar via Connect source mcd-pg) and each store's walk-in cooler, walk-in freezer, rooftop HVAC unit, backup generator and soft serve machine, bound live to the Historian dataset McDonalds via Connect source mcd-historian. All types come from the mcdonalds library."
+      "rdfs:comment": "McDonald's Arkansas operations: 6 territories, 191 restaurants and each store's cooler, freezer, HVAC unit, generator and soft serve machine (live health index, service condition, ice cream machine reliability), plus 18 technicians, their certifications, service trucks with daily parts counts, repair tasks and store-to-store road distances. Sources: Postgres mcdonalds_ar (Connect mcd-pg) and Historian dataset McDonalds (Connect mcd-historian). QUERY RULES for this Atlas build (wrong rows otherwise, no error): (1) never use inline property maps like (s:Store {StoreId:'X'}) or {StoreId: t.HomeStoreId} - they are ignored and match everything; filter in WHERE. (2) never re-match a node variable carried through WITH - put the path and its filters in one MATCH. (3) a technician's home store is (t:Technician)-[:basedAt]->(h:Store); distances are undirected -[d:roadDistanceTo]- edges with d.RoadMiles (no trig/point functions). (4) if a column that should vary is identical on every row, the query is wrong. Full guide: skill mcdonalds-ops-queries."
     }
   ]
 }

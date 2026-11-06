@@ -153,12 +153,254 @@ footer { margin: 48px 0 0; background: var(--ink); color: #DDD6C7; padding: 26px
 footer b { color: var(--yellow); }
 .err { background: var(--bad-bg); color: var(--bad); font-weight: 800; padding: 12px 16px; border-radius: 12px; margin-top: 16px; display: none; }
 
+/* ---------- fleet tracker ---------- */
+:root { --v-drive: #2a78d6; --v-site: #27251F; --v-lunch: #7E57C2; --v-off: #8A8478;
+        --c0: #1F8A47; --c1: #E39A00; --c2: #DD6B20; --c3: #C8261A; }
+.flt-headline { display: none; margin-top: 26px; position: relative; z-index: 1; }
+.flt-headline h1 { font-size: clamp(30px, 4.4vw, 50px); margin: 0; line-height: 1; }
+.flt-headline h1 em { font-style: normal; color: var(--yellow); }
+.flt-headline p { margin: 10px 0 0; max-width: 760px; font-size: 16px; line-height: 1.45; }
+body.flt .headline, body.flt .finder-only { display: none !important; }
+body.flt .flt-headline { display: block; }
+body.flt header.hero { padding-bottom: 84px; }
+#fleet { margin-top: -60px; position: relative; z-index: 2; }
+.fkpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.fkpis .kpi { padding: 14px 16px; }
+.fkpis .kpi .value { font-size: 32px; display: flex; align-items: center; gap: 10px; }
+.fkpis .kpi .note { font-size: 13px; }
+.fgrid { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 16px; margin-top: 16px; align-items: start; }
+.fside { background: var(--paper); border-radius: 20px; box-shadow: var(--shadow); padding: 14px; display: flex; flex-direction: column; gap: 10px;
+  height: calc(100vh - 140px); min-height: 560px; position: sticky; top: 12px; }
+.fctl { display: grid; gap: 8px; }
+.fctl select, .fctl input { font: 700 14px "Nunito Sans"; padding: 9px 12px; border-radius: 10px; border: 2px solid var(--line); background: #fff; color: var(--ink); width: 100%; box-sizing: border-box; }
+.fseg { display: flex; gap: 4px; background: var(--cream); border-radius: 999px; padding: 3px; }
+.fseg button { flex: 1; border: 0; background: transparent; font: 800 12px "Nunito Sans"; padding: 7px 4px; border-radius: 999px; cursor: pointer; color: var(--ink-2); }
+.fseg button.on { background: var(--ink); color: #fff; }
+.flist { overflow-y: auto; flex: 1; display: grid; gap: 6px; align-content: start; margin: 0 -4px; padding: 0 4px; }
+.vrow { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 4px 10px; padding: 10px 12px; border-radius: 12px; border: 2px solid transparent; cursor: pointer; background: var(--cream); text-align: left; font: inherit; color: inherit; width: 100%; }
+.vrow:hover { border-color: var(--line); }
+.vrow.sel { border-color: var(--ink); background: #fff; }
+.vrow .vdot { margin-top: 4px; }
+.vrow .who { font-weight: 800; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vrow .who small { color: var(--ink-2); font-weight: 700; }
+.vrow .trk { font: 800 12px "Nunito Sans"; color: var(--ink-2); white-space: nowrap; }
+.vrow .what { grid-column: 2 / 4; font-size: 13px; color: var(--ink); line-height: 1.35; }
+.vrow .meta { grid-column: 2 / 4; font-size: 12px; color: var(--ink-2); font-weight: 600; }
+.vdot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--v-off); flex: none; }
+.vdot.s10 { background: var(--v-drive); } .vdot.s20 { background: var(--v-site); } .vdot.s30 { background: var(--v-lunch); } .vdot.s0 { background: var(--v-off); }
+.sdot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
+.sdot.c0 { background: var(--c0); opacity: .6; } .sdot.c1 { background: var(--c1); } .sdot.c2 { background: var(--c2); } .sdot.c3 { background: var(--c3); }
+.fmapwrap { background: var(--paper); border-radius: 20px; box-shadow: var(--shadow); padding: 8px; position: sticky; top: 12px; }
+#fmap { height: calc(100vh - 186px); min-height: 520px; border-radius: 14px; }
+.flegend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 8px 6px 2px; font-size: 12px; font-weight: 700; color: var(--ink-2); align-items: center; }
+.flegend span { display: inline-flex; gap: 5px; align-items: center; }
+.flegend .sep { width: 1px; height: 14px; background: var(--line); }
+/* The pin's sharp lower-left corner sits exactly on the van's GPS position (iconAnchor is the div's top-left, so lift it by its own height). */
+.vpin { display: inline-flex; align-items: center; gap: 4px; background: var(--v-off); color: #fff; border: 2px solid #fff; border-radius: 999px 999px 999px 0;
+  padding: 2px 8px 2px 3px; box-shadow: 1px 2px 6px rgba(0,0,0,.4); font: 800 12px "Nunito Sans"; white-space: nowrap; transform: translate(0, -100%); }
+.vpin svg { width: 18px; height: 18px; fill: #fff; flex: none; }
+.vpin.s10 { background: var(--v-drive); } .vpin.s20 { background: var(--v-site); } .vpin.s30 { background: var(--v-lunch); }
+.vpin.nolabel { padding: 3px; } .vpin.nolabel span { display: none; }
+.vpin.sel { outline: 3px solid var(--yellow); outline-offset: 1px; }
+.fdetail { background: var(--cream); border-radius: 14px; padding: 12px 14px; display: grid; gap: 8px; max-height: 58%; overflow-y: auto; flex: none; }
+.fdetail[hidden] { display: none; }
+.fdetail .back { border: 0; background: none; font: 800 13px "Nunito Sans"; color: var(--red); cursor: pointer; padding: 0; justify-self: start; }
+.fdetail h3 { margin: 0; font-family: "Archivo Black"; font-weight: 400; font-size: 20px; line-height: 1.1; }
+.fdetail .sub2 { color: var(--ink-2); font-weight: 600; font-size: 13px; }
+.fdetail .now { font-weight: 800; font-size: 14px; display: flex; gap: 8px; align-items: center; }
+.certs { display: flex; flex-wrap: wrap; gap: 4px; }
+.certs span { font: 800 11px "Nunito Sans"; background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 2px 8px; }
+.stops { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.stops li { display: grid; grid-template-columns: 44px 14px minmax(0, 1fr); gap: 8px; align-items: center; font-size: 13px; padding: 3px 0; }
+.stops li .t { font-weight: 800; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.stops li .m { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ink-2); background: #fff; box-sizing: border-box; }
+.stops li.done { color: var(--ink-2); } .stops li.done .m { background: var(--ink-2); }
+.stops li.cur { font-weight: 800; } .stops li.cur .m { background: var(--v-drive); border-color: var(--v-drive); }
+.stops li .k { color: var(--ink-2); font-weight: 600; }
+.stops li a { color: inherit; }
+.fsnum { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2px solid var(--v-drive); color: var(--v-drive); font: 800 10px "Nunito Sans"; }
+.fcerts { margin-top: 28px; }
+.certsum { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+.certsum .chip2 { background: var(--paper); border-radius: 999px; padding: 6px 12px; font: 700 13px "Nunito Sans"; box-shadow: var(--shadow); display: inline-flex; gap: 6px; align-items: center; }
+.cmxwrap { background: var(--paper); border-radius: 20px; box-shadow: var(--shadow); padding: 8px 12px 12px; overflow-x: auto; }
+.cmx { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; min-width: 760px; }
+.cmx th { text-align: center; font-weight: 800; padding: 10px 6px 8px; vertical-align: bottom; border-bottom: 2px solid var(--line); }
+.cmx th.l { text-align: left; }
+.cmx th .cn { display: block; font-size: 12px; color: var(--ink-2); font-weight: 700; margin-top: 2px; }
+.cmx th .cf { display: block; font-size: 11px; color: var(--ink-2); font-weight: 600; }
+.cmx td { padding: 6px; text-align: center; border-bottom: 1px solid var(--line); }
+.cmx td.l { text-align: left; }
+.cmx tr.terr td { background: var(--cream); font-weight: 800; font-size: 13px; padding-top: 10px; }
+.cmx tr.tech { cursor: pointer; }
+.cmx tr.tech:hover td { background: #FFFBF0; }
+.cmx tr.tech.sel td { background: #FFF3C4; }
+.cmx .who { font-weight: 800; white-space: nowrap; }
+.cmx .who small { color: var(--ink-2); font-weight: 700; }
+.cmx .van { color: var(--ink-2); font-weight: 700; font-size: 12px; white-space: nowrap; }
+.cmx .cell { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; min-width: 64px; }
+.cmx .cell small { font-size: 11px; color: var(--ink-2); font-weight: 700; white-space: nowrap; }
+.cc { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px; font: 900 13px "Nunito Sans"; box-sizing: border-box; }
+.cc.ok { background: var(--ok-bg); color: var(--ok); }
+.cc.warn { background: var(--warn-bg); color: var(--warn); }
+.cc.bad { background: var(--bad-bg); color: var(--bad); }
+.cc.none { color: #B9B1A0; }
+.cc.cnt { background: #fff; border: 1.5px solid var(--line); color: var(--ink); }
+.cc.gap { background: var(--bad-bg); color: var(--bad); }
+.cmx tfoot td { font-weight: 800; border-bottom: 0; padding-top: 10px; }
+.cmx tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--paper); }
+.cmx tr.terr > :first-child { background: var(--cream); }
+.cmx tr.tech:hover > :first-child { background: #FFFBF0; }
+.cmx tr.tech.sel > :first-child { background: #FFF3C4; }
+.cmx .van.mob { display: none; }
+@media (max-width: 600px) {
+  .cmxwrap { padding: 4px 0 8px; }
+  .cmx { min-width: 640px; }
+  .cmx .vancol { display: none; }
+  .cmx .van.mob { display: inline; }
+  .cmx .who { white-space: normal; }
+  .cmx tr > :first-child { width: 128px; max-width: 128px; padding-left: 12px; box-shadow: 4px 0 6px -4px rgba(0,0,0,.18); }
+  .cmx tr.terr > :first-child { font-size: 12px; }
+}
+.cmxlegend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--ink-2); align-items: center; }
+.cmxlegend span { display: inline-flex; gap: 6px; align-items: center; }
+.ftip { position: fixed; z-index: 1000; background: var(--ink); color: #fff; padding: 8px 10px; border-radius: 10px; font-size: 13px; line-height: 1.4; max-width: 280px; pointer-events: none; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+.ftip b { color: var(--yellow); }
+@media (max-width: 960px) {
+  .fkpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fgrid { grid-template-columns: minmax(0, 1fr); }
+  .fmapwrap { order: -1; position: static; }
+  #fmap { height: 62vh; min-height: 360px; }
+  .fside { position: static; height: auto; min-height: 0; }
+  .flist { max-height: none; overflow: visible; }
+  .fdetail { max-height: none; }
+}
+@media (max-width: 560px) { .fkpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fkpis .kpi .value { font-size: 26px; } .fkpis .kpi:last-child { grid-column: 1 / -1; } }
+
+/* ---------- tabs ---------- */
+.tabs { display: flex; gap: 6px; background: rgba(0,0,0,.18); padding: 4px; border-radius: 999px; }
+.tabs a { color: #fff; text-decoration: none; font: 800 14px "Nunito Sans"; padding: 8px 16px; border-radius: 999px; }
+.tabs a.on { background: var(--yellow); color: var(--ink); }
+.tabs a:not(.on):hover { background: rgba(255,255,255,.14); }
+.mon-headline { display: none; margin-top: 26px; position: relative; z-index: 1; }
+.mon-headline h1 { font-size: clamp(30px, 4.4vw, 50px); margin: 0; line-height: 1; }
+.mon-headline h1 em { font-style: normal; color: var(--yellow); }
+.mon-headline p { margin: 10px 0 0; max-width: 760px; font-size: 16px; line-height: 1.45; }
+body.mon .headline, body.mon .finder-only { display: none !important; }
+body.mon .mon-headline { display: block; }
+body.mon header.hero { padding-bottom: 84px; }
+
+/* ---------- store monitor ---------- */
+#monitor { margin-top: -62px; position: relative; z-index: 2; }
+.mctl { background: var(--yellow); border-radius: 24px; box-shadow: var(--shadow); padding: 16px 20px; display: grid; gap: 12px; position: sticky; top: 8px; z-index: 5; }
+.mrow { display: flex; gap: 12px 18px; flex-wrap: wrap; align-items: center; }
+.mctl { grid-template-columns: minmax(0, 1fr); }
+.mrow > * { min-width: 0; max-width: 100%; }
+#m-store-wrap, #m-terr-wrap { max-width: 100%; }
+#m-store-wrap select, #m-terr-wrap select { width: 100%; text-overflow: ellipsis; }
+.fpick select { max-width: 100%; }
+.mrow .lab { font: 800 12px "Nunito Sans"; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.seg { display: inline-flex; background: rgba(39,37,31,.1); border-radius: 12px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; font: 800 14px "Nunito Sans"; padding: 8px 12px; border-radius: 9px; cursor: pointer; color: var(--ink); }
+.seg button.on { background: var(--ink); color: var(--yellow); }
+.mctl select, .mctl input, #m-focus select, .mtools select { font: 700 14px "Nunito Sans"; padding: 9px 12px; border-radius: 10px; border: 2px solid var(--ink); background: #fff; color: var(--ink); max-width: 100%; }
+#m-store { min-width: min(420px, 100%); }
+#m-store-wrap { flex: 0 1 auto; }
+.chip.on { background: var(--ink); color: var(--yellow); }
+.mchip { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 3px 4px 3px 12px; font: 700 13px "Nunito Sans"; }
+.mchip button { border: 0; background: var(--ink); color: #fff; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; font: 800 14px/1 "Nunito Sans"; }
+.mchip .lk { display: inline-block; width: 14px; height: 3px; border-radius: 2px; }
+.hint { color: var(--ink-2); font-weight: 600; font-size: 14px; }
+#m-fleet-wrap { display: grid; gap: 10px; }
+#m-fleet-wrap[hidden], #m-store-wrap[hidden], #m-terr-wrap[hidden] { display: none; }
+.chipsrow { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn.small { font-size: 14px; padding: 9px 14px; }
+.mkpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.mkpis .kpi .value { font-size: 34px; }
+.mkpis .kpi .note { font-size: 13px; }
+.muted { color: var(--ink-2); font-weight: 600; }
+.store-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.store-head h3 { margin: 0 0 4px; font-size: 26px; }
+.ucards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.ucard { text-align: left; font: inherit; color: inherit; background: var(--paper); border: 3px solid transparent; border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; cursor: pointer; display: grid; gap: 8px; align-content: start; }
+.ucard:hover { border-color: var(--yellow); }
+.ucard.focus { border-color: var(--ink); }
+.utop { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.uname { font-family: "Archivo Black"; font-size: 17px; }
+.ubig { font-family: "Archivo Black"; font-size: 34px; line-height: 1.05; font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 8px; }
+.ubig small { font: 700 14px "Nunito Sans"; color: var(--ink-2); }
+.urow { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--ink-2); font-weight: 600; }
+.urow b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.ugo { font-weight: 800; font-size: 13px; color: var(--red); }
+.spill { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-size: 13px; white-space: nowrap; }
+i.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; flex: none; vertical-align: -1px; margin-right: 4px; }
+i.sw.normal { background: #1F8A47; } i.sw.idle { background: #86C29C; } i.sw.routine { background: #4F86D4; }
+i.sw.alert { background: #E39A00; } i.sw.nodata { background: #DDD7CB; }
+i.sw.fault { background: repeating-linear-gradient(135deg, #C8261A 0 3px, #E27A70 3px 5px); }
+.hb { display: inline-block; min-width: 40px; text-align: center; padding: 2px 6px; border-radius: 8px; font: 800 12px "Nunito Sans"; font-variant-numeric: tabular-nums; }
+.hb.ok { background: var(--ok-bg); color: var(--ok); } .hb.warn { background: var(--warn-bg); color: var(--warn); } .hb.bad { background: var(--bad-bg); color: var(--bad); }
+.mx { font-size: 13px; }
+.mx th { position: sticky; top: 0; z-index: 1; background: var(--ink); color: #fff; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 10px 8px; text-align: left; white-space: nowrap; }
+.mx td { padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.mx td.cellu { cursor: pointer; border-radius: 8px; }
+.mx td.cellu:hover, .mx td.cellu:focus { background: #FFF6DB; outline: none; }
+.mx td.cellu.focus { box-shadow: inset 0 0 0 2px var(--ink); }
+.mx td.star button { border: 0; background: none; font-size: 18px; cursor: pointer; color: var(--warn); padding: 0 2px; }
+.linkish { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 0; text-align: left; }
+.linkish:hover { color: var(--red); text-decoration: underline; }
+.mtools { display: flex; gap: 10px; align-items: center; }
+.hgrid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.hcard .hhead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.hcard h3 { margin: 0; font-size: 20px; }
+.msub { font: 800 11px "Nunito Sans"; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 14px 0 6px; }
+.cwrap { width: 100%; }
+.cwrap canvas { display: block; touch-action: pan-y; }
+.legend .lkey i { display: inline-block; width: 16px; height: 3px; border-radius: 2px; vertical-align: 3px; margin-right: 6px; }
+.legend .lkey.dash i { background-size: 6px 3px !important; -webkit-mask: repeating-linear-gradient(90deg, #000 0 4px, transparent 4px 7px); mask: repeating-linear-gradient(90deg, #000 0 4px, transparent 4px 7px); }
+.legend { margin-top: 10px; }
+.legend b { color: var(--ink); }
+.stale { opacity: .55; transition: opacity .2s; }
+#m-focus { scroll-margin-top: 150px; }
+.fhead { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: start; }
+.fhead h3 { margin: 0 0 6px; font-size: 24px; }
+.fpick { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.fpick .seg { background: var(--off-bg); }
+.iconbtn { border: 2px solid var(--ink); background: #fff; border-radius: 10px; width: 40px; height: 40px; font: 800 18px "Nunito Sans"; cursor: pointer; }
+.fcols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; }
+.fcols > * { min-width: 0; }
+.fcols h4 { margin: 0 0 8px; font-size: 16px; font-family: "Archivo Black"; font-weight: 400; }
+.tis { font-size: 13px; }
+.tis th { text-align: left; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); padding: 6px; border-bottom: 2px solid var(--line); }
+.tis td { padding: 6px; border-bottom: 1px solid var(--line); font-weight: 600; }
+.tis .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.evwrap { max-height: 320px; overflow: auto; }
+#m-tip { position: fixed; z-index: 1000; display: none; pointer-events: none; background: #fff; color: var(--ink); border-radius: 10px; box-shadow: 0 8px 24px rgba(39,37,31,.22); padding: 8px 10px; font-size: 13px; max-width: 320px; }
+#m-tip .th { font-weight: 800; margin-bottom: 4px; }
+#m-tip .tr { display: flex; gap: 6px; align-items: center; color: var(--ink-2); font-weight: 600; margin-top: 2px; }
+#m-tip .tr b { color: var(--ink); font-variant-numeric: tabular-nums; }
+#m-tip i.key { display: inline-block; width: 12px; height: 3px; border-radius: 2px; }
+#m-tip i.box { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.statelegend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+
 /* map markers */
 .you { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; background: var(--red); transform: rotate(-45deg); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.truck { width: 30px; height: 30px; border-radius: 50%; background: #27251F; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.45);
+  display: grid; place-items: center; }
+.truck svg { width: 16px; height: 16px; fill: #fff; }
+.truck.s10 { background: #2a78d6; }
+.truck.s20, .truck.s30 { background: #27251F; }
+.truck.s0 { background: #8A8478; }
+.truck.sel { outline: 3px solid var(--yellow); outline-offset: 1px; }
+.trucks-ctl { background: #fff; padding: 6px 10px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.3); font: 700 13px "Nunito Sans"; }
+.trucks-ctl label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+.trucks-ctl .lg { display: flex; gap: 10px; margin-top: 4px; font-weight: 600; color: var(--ink-2); }
+.trucks-ctl .lg i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
 .leaflet-popup-content { font-family: "Nunito Sans"; font-size: 14px; }
 .leaflet-popup-content b { font-family: "Archivo Black"; font-weight: 400; }
 
+@media (max-width: 1100px) { .mkpis { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 960px) {
+  .fcols { grid-template-columns: 1fr; }
+  .mctl { position: static; }
   .headline, .results, .r2r, .search-card { grid-template-columns: 1fr; }
   form.zip { justify-content: flex-start; }
   .kpis { grid-template-columns: repeat(2, 1fr); }
@@ -166,7 +408,8 @@ footer b { color: var(--yellow); }
 }
 @media (max-width: 560px) {
   .wrap { padding: 0 16px; }
-  .kpis { grid-template-columns: 1fr; }
+  .kpis, .mkpis { grid-template-columns: 1fr; }
+  .tabs a { padding: 8px 12px; font-size: 13px; }
   form.zip input { width: 100%; }
   form.zip .btn { flex: 1; }
 }
@@ -190,7 +433,16 @@ footer b { color: var(--yellow); }
           <div class="name">Soft Serve Finder</div>
         </div>
       </div>
-      <div class="updated"><span class="pulse"></span><span id="updated">Connecting to Atlas…</span></div>
+      <nav class="tabs" aria-label="Dashboard views"><a href="#" id="tab-finder" class="on">Soft Serve Finder</a><a href="#monitor" id="tab-monitor">Store Monitor</a><a href="#fleet" id="tab-fleet">Fleet Tracker</a></nav>
+      <div class="updated"><span class="pulse"></span><span id="updated" class="finder-only">Connecting to Atlas…</span><span id="m-updated" style="display:none"></span><span id="f-updated" style="display:none"></span></div>
+    </div>
+    <div class="flt-headline">
+      <h1>Fleet <em>Tracker</em></h1>
+      <p>Every technician's van across Arkansas, live from Atlas, with who's driving, where they're headed and today's route. All 191 restaurants are on the map, coloured by their worst equipment problem right now.</p>
+    </div>
+    <div class="mon-headline">
+      <h1>Store <em>Monitor</em></h1>
+      <p>Pick one store, a territory, your own fleet or all 191 restaurants. Everything below follows that choice: live state from Atlas, and up to 7 days of history from the Historian. Click any store or unit to open its history.</p>
     </div>
     <div class="headline">
       <h1>Is the ice cream machine <em>broken?</em></h1>
@@ -202,7 +454,7 @@ footer b { color: var(--yellow); }
   </div>
 </header>
 
-<div class="wrap search">
+<div class="wrap search finder-only">
   <div class="search-card">
     <div>
       <h2>Find a working machine</h2>
@@ -225,7 +477,7 @@ footer b { color: var(--yellow); }
   <div class="err" id="err"></div>
 </div>
 
-<main class="wrap">
+<main class="wrap finder-only" id="finder">
   <section>
     <div class="results">
       <div>
@@ -323,18 +575,130 @@ footer b { color: var(--yellow); }
   </section>
 </main>
 
+<main class="wrap" id="fleet" hidden>
+  <div class="err" id="ft-err"></div>
+  <div class="fkpis" id="ft-kpis" aria-live="polite"></div>
+  <div class="fgrid">
+    <aside class="fside">
+      <div class="fctl">
+        <select id="ft-terr" aria-label="Territory"><option value="">All territories</option></select>
+        <input id="ft-q" type="search" placeholder="Technician, van or city" aria-label="Search vans">
+        <div class="fseg" id="ft-status" role="group" aria-label="Status">
+          <button type="button" data-s="" class="on">All</button><button type="button" data-s="10">Driving</button><button type="button" data-s="20">On site</button><button type="button" data-s="0">Off duty</button>
+        </div>
+      </div>
+      <div id="ft-detail" class="fdetail" hidden></div>
+      <div id="ft-list" class="flist"></div>
+    </aside>
+    <div class="fmapwrap">
+      <div id="fmap" role="region" aria-label="Map of vans and restaurants"></div>
+      <div class="flegend">
+        <span><i class="vdot s10"></i>Driving</span><span><i class="vdot s20"></i>On site</span><span><i class="vdot s30"></i>Lunch</span><span><i class="vdot s0"></i>Off duty</span>
+        <span class="sep"></span>
+        <span><i class="sdot c0"></i>Store healthy</span><span><i class="sdot c1"></i>Warning</span><span><i class="sdot c2"></i>Danger</span><span><i class="sdot c3"></i>Fault</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="fcerts" aria-labelledby="ft-cert-h">
+    <div class="section-head">
+      <div>
+        <h2 id="ft-cert-h">Certifications</h2>
+        <p>Every technician and the certifications that decide which repairs they're allowed to do. A repair task needs every certification it lists, so a gap here is a store a van drives past. Live from Atlas (<code>holdsCertification</code> edges). Click a technician to find their van.</p>
+      </div>
+    </div>
+    <div class="certsum" id="ft-certsum"></div>
+    <div class="cmxwrap"><table class="cmx" id="ft-cmx"></table></div>
+    <div class="cmxlegend">
+      <span><b class="cc ok">✓</b> Current</span><span><b class="cc warn">!</b> Expires within 90 days</span><span><b class="cc bad">✕</b> Expired</span><span><b class="cc none">–</b> Not held</span>
+      <span class="sub2">Territory rows count current holders; <b class="cc gap">0</b> = nobody in that territory can do that work.</span>
+    </div>
+  </section>
+  <div id="ft-tip" class="ftip" role="tooltip" hidden></div>
+</main>
+
+<main class="wrap" id="monitor" hidden>
+  <div class="mctl" role="region" aria-label="Monitor scope">
+    <div class="mrow">
+      <span class="lab">Watch</span>
+      <div class="seg" id="m-scope"><button type="button" data-scope="store">One store</button><button type="button" data-scope="terr">Territory</button><button type="button" data-scope="fleet">My fleet</button><button type="button" data-scope="all">All stores</button></div>
+      <span id="m-store-wrap"><select id="m-store" aria-label="Store"></select></span>
+      <span id="m-terr-wrap" hidden><select id="m-terr" aria-label="Territory"></select></span>
+      <span class="muted" id="m-scope-sum"></span>
+    </div>
+    <div id="m-fleet-wrap" hidden>
+      <div class="mrow"><input id="m-fleet-add" list="m-fleet-list" placeholder="Add a store: ID or city" aria-label="Add a store to my fleet"><datalist id="m-fleet-list"></datalist>
+        <select id="m-fleet-terr" aria-label="Add a territory"></select><button type="button" class="btn ghost small" id="m-fleet-clear">Clear fleet</button></div>
+      <div class="chipsrow" id="m-fleet-chips"></div>
+    </div>
+    <div class="mrow">
+      <span class="lab">Equipment</span><div class="chipsrow" id="m-eq"></div>
+      <span class="lab">History</span><div class="seg" id="m-range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="72">3 days</button><button type="button" data-h="168">7 days</button></div>
+    </div>
+  </div>
+  <div class="err" id="m-err"></div>
+
+  <section>
+    <div class="mkpis kpis" id="m-kpis"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div><h2>Right now</h2><p>Live from Atlas. Health index runs from 0 to 100: the unit's last hour compared with its own 3-day baseline and its design normal. Below 70 it's a Warning and below 40 it's Danger. <b>Drifting</b> means health has dropped but the unit hasn't reported a fault yet.</p></div>
+      <div class="mtools"><label class="muted" for="m-sort">Sort</label><select id="m-sort"><option value="worst">Worst first</option><option value="id">Store ID</option><option value="city">City</option></select></div>
+    </div>
+    <div id="m-now"></div>
+  </section>
+
+  <section id="m-history">
+    <div class="section-head">
+      <div><h2>History</h2><p>What each unit was doing over the selected window, and how its health index moved. Hover for details, or click a row to open that unit below.</p></div>
+      <div class="statelegend"><span><i class="sw normal"></i>Running normally</span><span><i class="sw idle"></i>Off / standby</span><span><i class="sw routine"></i>Planned cycle (defrost, stocking, exercise run, heat treat, mix low)</span><span><i class="sw alert"></i>Attention (generator unplanned run)</span><span><i class="sw fault"></i>Fault</span><span><i class="sw nodata"></i>No data</span></div>
+    </div>
+    <div class="muted" id="m-hist-note" style="margin-bottom:10px"></div>
+    <div class="hgrid" id="m-hist-body"></div>
+  </section>
+
+  <section id="m-focus" hidden>
+    <div class="section-head"><div><h2>Unit detail</h2><p>One unit at a time. Swap the store or equipment, or overlay up to two other stores on the same charts.</p></div></div>
+    <div class="card">
+      <div class="fhead">
+        <div><h3 id="m-f-title"></h3><div id="m-f-now"></div></div>
+        <button type="button" class="btn ghost small" id="m-f-single">Watch this store</button>
+      </div>
+      <div class="fpick">
+        <button type="button" class="iconbtn" id="m-f-prev" aria-label="Previous store">‹</button>
+        <select id="m-f-store" aria-label="Store for unit detail"></select>
+        <button type="button" class="iconbtn" id="m-f-next" aria-label="Next store">›</button>
+        <div class="seg" id="m-f-cls"></div>
+        <select id="m-f-cmp" aria-label="Compare with another store"></select>
+        <span class="chipsrow" id="m-f-cmpchips"></span>
+      </div>
+      <div id="m-f-charts"></div>
+      <div class="fcols">
+        <div><h4>Time in each state</h4><div id="m-f-tis"></div></div>
+        <div><h4>Faults, alerts and data gaps</h4><div class="evwrap" id="m-f-events"></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="m-tip" role="tooltip"></div>
+
 <footer>
   <div class="wrap">
     <b>Demo, not a real service.</b> Machine states are simulated telemetry (Timebase Historian → Connect → Atlas domain <code>mcdonalds-ops</code>); restaurants, technicians and trucks are demo data. Distances are straight-line × 1.3. Not affiliated with or endorsed by McDonald's, Taylor or McBroken. Inspired by McBroken.com.
   </div>
 </footer>
 
+<script src="/monitor.js"></script>
+<script src="/fleet.js"></script>
 <script>
 (() => {
   const STATE_NAMES = {0: "Serving", 10: "Heat treat", 20: "Mix low", 40: "Needs service"};
   const GRADES = {4: ["A", "Swirl Legend"], 3: ["B", "Dependable Dip"], 2: ["C", "Coin Flip"], 1: ["D", "Ask Before You Order"], 0: ["F", "Certified Broken"]};
   const ROAD = 1.3, FIX_RADIUS = 30;
   let data = null, here = null, hereLabel = "", rtr = false, sortKey = "score", sortAsc = true, map, layer, youMarker;
+  let truckLayer, trailLayer, showTrucks = true, trailTruck = null;
 
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
@@ -384,7 +748,7 @@ footer b { color: var(--yellow); }
       return `<div class="fixer blocked">🔧 ${esc(nearest.name)} is ${fmt0(nearest.d)} mi away with a Taylor kit on ${esc(nearest.truck)}, but isn't Taylor-certified. Nearest certified tech: ${esc(best.name)}, ${fmt0(best.d)} mi. <a href="#r2r" onclick="document.getElementById('r2r').click();return false">Flip Right to Repair →</a></div>`;
     const cls = best.d <= FIX_RADIUS ? "go" : "";
     const why = !best.taylorCertified ? " (thanks to Right to Repair)" : "";
-    return `<div class="fixer ${cls}">🔧 ${esc(best.name)} could fix it today${why}: ${fmt0(best.d)} mi away, kit on ${esc(best.truck)}.</div>`;
+    return `<div class="fixer ${cls}">🔧 ${esc(best.name)} could fix it today${why}: ${fmt0(best.d)} mi away right now (${esc(whereNow(best))}), kit on ${esc(best.truck)}.</div>`;
   }
 
   // ---------- map ----------
@@ -394,13 +758,77 @@ footer b { color: var(--yellow); }
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 18,
     }).addTo(map);
     layer = L.layerGroup().addTo(map);
+    trailLayer = L.layerGroup().addTo(map);
+    truckLayer = L.layerGroup().addTo(map);
+    const ctl = L.control({position: "topright"});
+    ctl.onAdd = () => {
+      const d = L.DomUtil.create("div", "trucks-ctl");
+      d.innerHTML = `<label><input type="checkbox" id="show-trucks" checked> Technicians' vans</label>
+        <div class="lg"><span><i style="background:#2a78d6"></i>Driving</span><span><i style="background:#27251F"></i>On site</span><span><i style="background:#8A8478"></i>Off duty</span></div>`;
+      L.DomEvent.disableClickPropagation(d);
+      d.querySelector("input").addEventListener("change", (e) => {
+        showTrucks = e.target.checked;
+        if (!showTrucks) { trailLayer.clearLayers(); trailTruck = null; }
+        drawTrucks();
+      });
+      return d;
+    };
+    ctl.addTo(map);
   }
+
+  // ---------- technicians' vans (live GPS from Atlas, routes on real roads) ----------
+  const TRUCK_STATUS = {0: "Off duty", 10: "Driving", 20: "On site", 30: "On lunch"};
+  const VAN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1h2.6a2 2 0 0 1 1.7.9l1.4 2.2c.2.3.3.7.3 1.1V16a1 1 0 0 1-1 1h-1.1a2.5 2.5 0 0 1-4.8 0H8.9a2.5 2.5 0 0 1-4.8 0H3a1 1 0 0 1-1-1V7zm14 3v3h4.2l-1.6-2.6a1 1 0 0 0-.8-.4H16z"/></svg>';
+  function storeCity(id) { const m = data && data.machines.find((x) => x.id === id); return m ? `${m.city} (${id})` : id; }
+  function whereNow(t) {
+    if (t.status === 10) return t.next ? `driving to ${storeCity(t.next)}` : "driving";
+    if (t.status === 20) return `on site in ${storeCity(t.at)}`;
+    if (t.status === 30) return `on lunch in ${storeCity(t.at)}`;
+    return `off duty, parked in ${storeCity(t.at || t.base)}`;
+  }
+  function drawTrucks() {
+    truckLayer.clearLayers();
+    if (!showTrucks || !data) return;
+    for (const t of data.technicians) {
+      if (t.lat == null) continue;
+      const sel = trailTruck === t.truck ? " sel" : "";
+      const mk = L.marker([t.lat, t.lon], {icon: L.divIcon({className: "", html: `<div class="truck s${t.status ?? 0}${sel}">${VAN}</div>`, iconSize: [30, 30], iconAnchor: [15, 15]}),
+                                            zIndexOffset: t.status === 10 ? 900 : 800, keyboard: true, title: `${t.name}, ${TRUCK_STATUS[t.status] || ""}`});
+      const fix = t.fix ? new Date(t.fix).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"}) : "–";
+      mk.bindPopup(`<b>${esc(t.name)}</b> · ${esc(t.level || "")}<br>${esc(t.truck || "")} · ${esc(whereNow(t))}<br>
+        <span style="color:#5B564B">${t.taylorCertified ? "Taylor-certified" : "Not Taylor-certified"}${t.taylorParts ? " · Taylor kit on board" : ""} · GPS ${fix}</span><br>
+        <a href="#" onclick="showTrail('${esc(t.truck)}');return false">${trailTruck === t.truck ? "Hide" : "Show"} today's route →</a>`);
+      mk.addTo(truckLayer);
+    }
+  }
+  async function showTrail(truck) {
+    trailLayer.clearLayers();
+    if (trailTruck === truck) { trailTruck = null; map.closePopup(); drawTrucks(); return; }
+    trailTruck = truck;
+    map.closePopup();
+    drawTrucks();
+    const r = await fetch(`/api/truck/track?truck=${encodeURIComponent(truck)}`);
+    const j = await r.json();
+    if (!r.ok || trailTruck !== truck) return;
+    const pts = j.points.map((p) => [p[1], p[2]]);
+    if (pts.length < 2) return;
+    L.polyline(pts, {color: "#fff", weight: 7, opacity: 0.9}).addTo(trailLayer);
+    L.polyline(pts, {color: "#2a78d6", weight: 4}).addTo(trailLayer);
+    for (const p of j.points) {   // the stops: where the status turns to on site / lunch
+      if (p[3] === 20 || p[3] === 30) {
+        L.circleMarker([p[1], p[2]], {radius: 5, color: "#fff", weight: 2, fillColor: "#27251F", fillOpacity: 1})
+          .bindTooltip(`${new Date(p[0]).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})} ${p[3] === 30 ? "lunch" : "arrived"}`).addTo(trailLayer);
+      }
+    }
+    map.fitBounds(L.latLngBounds(pts).pad(0.15));
+  }
+  window.showTrail = showTrail;
   function drawMap() {
     layer.clearLayers();
     for (const m of data.machines) {
       const s = status(m);
       const mk = L.circleMarker([m.lat, m.lon], {radius: s.kind === "ok" ? 7 : 6, color: "#fff", weight: 2, fillColor: color[s.kind], fillOpacity: 1});
-      mk.bindPopup(`<b>${esc(m.city)}</b> · ${esc(m.id)}<br>${esc(m.address)}<br><span class="pill ${s.cls}">${s.label}</span> ${gradeBadge(m.grade).replace('class="grade', 'style="width:24px;height:24px;font-size:13px;vertical-align:middle" class="grade')}<br><span style="color:#5B564B">${esc(s.why)}</span>`);
+      mk.bindPopup(`<b>${esc(m.city)}</b> · ${esc(m.id)}<br>${esc(m.address)}<br><span class="pill ${s.cls}">${s.label}</span> ${gradeBadge(m.grade).replace('class="grade', 'style="width:24px;height:24px;font-size:13px;vertical-align:middle" class="grade')}<br><span style="color:#5B564B">${esc(s.why)}</span><br><a href="#monitor?scope=store&store=${encodeURIComponent(m.id)}&focus=${encodeURIComponent(m.id)}.SOFTSERVE">Monitor this store →</a>`);
       mk.storeId = m.id;
       mk.addTo(layer);
     }
@@ -574,13 +1002,37 @@ footer b { color: var(--yellow); }
       data = j;
       $("err").style.display = "none";
       $("updated").textContent = `Live from Atlas · ${new Date(j.generatedAt).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}`;
-      renderStats(); renderR2R(); drawMap(); renderHeat(); renderTable(); renderFinder();
+      renderStats(); renderR2R(); drawMap(); drawTrucks(); renderHeat(); renderTable(); renderFinder();
     } catch (e) {
       $("err").textContent = `Couldn't reach Atlas: ${e.message}`;
       $("err").style.display = "block";
     }
   }
   initMap();
+  // ---------- tabs ----------
+  function showTab() {
+    const mon = location.hash.startsWith("#monitor"), flt = location.hash.startsWith("#fleet");
+    const was = document.body.classList.contains("mon") ? "mon" : document.body.classList.contains("flt") ? "flt" : "finder";
+    document.body.classList.toggle("mon", mon);
+    document.body.classList.toggle("flt", flt);
+    $("monitor").hidden = !mon;
+    $("fleet").hidden = !flt;
+    $("tab-monitor").classList.toggle("on", mon);
+    $("tab-fleet").classList.toggle("on", flt);
+    $("tab-finder").classList.toggle("on", !mon && !flt);
+    $("m-updated").style.display = mon ? "" : "none";
+    $("f-updated").style.display = flt ? "" : "none";
+    const now = mon ? "mon" : flt ? "flt" : "finder";
+    if (mon) { window.Monitor.readHash(); window.Monitor.start(); if (was !== now) window.scrollTo({top: 0}); }
+    else if (flt) { window.Fleet.readHash(); window.Fleet.start(); if (was !== now) window.scrollTo({top: 0}); }
+    else setTimeout(() => map.invalidateSize(), 50);
+  }
+  $("tab-finder").addEventListener("click", (e) => { e.preventDefault(); history.pushState(null, "", location.pathname + location.search); showTab(); });
+  $("tab-monitor").addEventListener("click", (e) => { e.preventDefault(); if (!location.hash.startsWith("#monitor")) history.pushState(null, "", "#monitor"); showTab(); });
+  $("tab-fleet").addEventListener("click", (e) => { e.preventDefault(); if (!location.hash.startsWith("#fleet")) history.pushState(null, "", "#fleet"); showTab(); });
+  window.addEventListener("hashchange", showTab);
+  window.addEventListener("popstate", showTab);
+  showTab();
   const params = new URLSearchParams(location.search);
   if (params.get("rtr") === "1") { rtr = true; $("r2r").checked = true; }
   load().then(() => { if (params.get("zip")) findZip(params.get("zip")); });

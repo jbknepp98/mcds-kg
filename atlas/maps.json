@@ -1781,6 +1781,36 @@
      "type": "StaticStrategy",
      "value": "[Lp]"
     }
+   ],
+   "urn:atlas:ontology:mcdonalds:GpsLatitude": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_c10edc/TruckLatitude/[Tk]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:GpsLongitude": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_c10edc/TruckLongitude/[Tk]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:TruckStatus": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_c10edc/TruckStatus/[Tk]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:CurrentStoreId": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_c10edc/TruckCurrentStore/[Tk]"
+    }
+   ],
+   "urn:atlas:ontology:mcdonalds:NextStoreId": [
+    {
+     "type": "BoundStrategy",
+     "bindingPath": "con_c10edc/TruckNextStore/[Tk]"
+    }
    ]
   }
  },
