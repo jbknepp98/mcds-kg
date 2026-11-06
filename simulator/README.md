@@ -65,10 +65,12 @@ A code of 40 or above means the store already knows something is wrong (service 
 - **State tags only change on transitions.** A generator in standby writes nothing for days. The health job
   re-stamps long-held states so Atlas never reads them as blank (see "State heartbeat" in the main README).
 - **A Collector restart sends every unit back to the first step of its loop** (seen on 2.0-gc6 and 2.0.0; the saved
-  state keeps the timeline but not the position in the loop). Because each loop ends with its fault step, nothing
-  faults for a while after a restart: about a day for at-risk coolers, freezers and HVAC, 2 days for unreliable ice
-  cream machines, up to 5 days for healthy units. Drifting (Warning/Danger) units still show, because they are
-  about temperatures, not faults. Avoid restarting the Collector shortly before a demo.
+  state keeps the timeline but not the position in the loop). So each loop is built to start with a **lead-in**: the
+  unit's steady state (Holding, Cooling – Occupied, Standby, Operational) for a random 1 minute up to a full loop
+  (capped at 24 h for coolers, freezers and HVAC), then its fault, then its normal pattern. After a restart, faults
+  therefore start within minutes and arrive spread out, instead of all of them 1–5 days later. Loop lengths, and so
+  fault rates, are within 4 % of the original design. `tools/sim_fault_first.py` made this change (2026-11-06) and
+  is safe to re-run. For a day after a restart, coolers, freezers and HVAC fault somewhat more often than usual.
 - **The store lists are hard-coded** in each sequence's `map`. They must match `org.store` in Postgres. If stores are
   added or removed, update the lists so every store number appears in exactly one sequence per class.
 

@@ -15,368 +15,340 @@
         ],
         "steps": [
           {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
             "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
+            "duration": "random(1, 1440)"
           },
           {
             "value": "random(40, 43)",
             "duration": "random(20, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
           }
         ],
         "tags": [
@@ -416,6 +388,8 @@
             },
             "type": "System.Double",
             "values": [
+              "ramp(45, -4.0, 1.0)",
+              "ramp(45, 20.0, 3.0)",
               "ramp(45, -3.0, 1.0)",
               "ramp(45, -7.0, 1.0)",
               "ramp(45, -4.0, 1.0)",
@@ -497,16 +471,7 @@
               "ramp(45, -4.0, 1.0)",
               "ramp(45, -2.5, 1.2)",
               "ramp(45, 6.0, 1.6)",
-              "ramp(45, -3.0, 1.0)",
-              "ramp(45, -7.0, 1.0)",
-              "ramp(45, -4.0, 1.0)",
-              "ramp(45, -2.5, 1.2)",
-              "ramp(45, -4.0, 1.0)",
-              "ramp(45, -1.0, 1.4)",
-              "ramp(45, -4.0, 1.0)",
-              "ramp(45, -2.5, 1.2)",
-              "ramp(45, 6.0, 1.6)",
-              "ramp(45, 20.0, 3.0)"
+              "ramp(45, -3.0, 1.0)"
             ]
           }
         ]
@@ -520,116 +485,76 @@
         ],
         "steps": [
           {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
             "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(30, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(30, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(30, 60)"
+            "duration": "random(1, 1440)"
           },
           {
             "value": "random(40, 43)",
             "duration": "random(120, 360)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(30, 60)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
           }
         ],
         "tags": [
@@ -669,6 +594,8 @@
             },
             "type": "System.Double",
             "values": [
+              "ramp(45, 1.0, 1.0)",
+              "ramp(45, 14.0, 2.5)",
               "ramp(45, 2.5, 1.0)",
               "ramp(45, -3.0, 1.0)",
               "ramp(45, 1.0, 1.0)",
@@ -684,19 +611,7 @@
               "ramp(45, 3.0, 1.2)",
               "ramp(45, 1.0, 1.0)",
               "ramp(45, 5.0, 1.4)",
-              "ramp(45, 1.0, 1.0)",
-              "ramp(45, 3.0, 1.2)",
-              "ramp(45, 12.0, 1.6)",
-              "ramp(45, 2.5, 1.0)",
-              "ramp(45, -3.0, 1.0)",
-              "ramp(45, 1.0, 1.0)",
-              "ramp(45, 3.0, 1.2)",
-              "ramp(45, 1.0, 1.0)",
-              "ramp(45, 5.0, 1.4)",
-              "ramp(45, 1.0, 1.0)",
-              "ramp(45, 3.0, 1.2)",
-              "ramp(45, 12.0, 1.6)",
-              "ramp(45, 14.0, 2.5)"
+              "ramp(45, 1.0, 1.0)"
             ]
           }
         ]
@@ -710,368 +625,340 @@
         ],
         "steps": [
           {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
             "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(20, 45)"
+            "duration": "random(1, 1440)"
           },
           {
             "value": "random(40, 43)",
             "duration": "random(20, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
           }
         ],
         "tags": [
@@ -1111,6 +998,8 @@
             },
             "type": "System.Double",
             "values": [
+              "ramp(45, 38.0, 1.0)",
+              "ramp(45, 55.0, 3.0)",
               "ramp(45, 39.0, 1.0)",
               "ramp(45, 34.5, 1.0)",
               "ramp(45, 38.0, 1.0)",
@@ -1192,16 +1081,7 @@
               "ramp(45, 38.0, 1.0)",
               "ramp(45, 39.5, 1.2)",
               "ramp(45, 42.0, 1.6)",
-              "ramp(45, 39.0, 1.0)",
-              "ramp(45, 34.5, 1.0)",
-              "ramp(45, 38.0, 1.0)",
-              "ramp(45, 39.5, 1.2)",
-              "ramp(45, 38.0, 1.0)",
-              "ramp(45, 40.5, 1.4)",
-              "ramp(45, 38.0, 1.0)",
-              "ramp(45, 39.5, 1.2)",
-              "ramp(45, 42.0, 1.6)",
-              "ramp(45, 55.0, 3.0)"
+              "ramp(45, 39.0, 1.0)"
             ]
           }
         ]
@@ -1215,116 +1095,76 @@
         ],
         "steps": [
           {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
             "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(30, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(30, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 45)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "22",
-            "duration": "random(5, 20)"
-          },
-          {
-            "value": "20",
-            "duration": "random(90, 240)"
-          },
-          {
-            "value": "21",
-            "duration": "random(1, 5)"
-          },
-          {
-            "value": "30",
-            "duration": "random(30, 60)"
+            "duration": "random(1, 1440)"
           },
           {
             "value": "random(40, 43)",
             "duration": "random(60, 240)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "30",
+            "duration": "random(30, 60)"
+          },
+          {
+            "value": "0",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 45)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "21",
+            "duration": "random(1, 5)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
+          },
+          {
+            "value": "22",
+            "duration": "random(5, 20)"
+          },
+          {
+            "value": "20",
+            "duration": "random(90, 240)"
           }
         ],
         "tags": [
@@ -1364,6 +1204,8 @@
             },
             "type": "System.Double",
             "values": [
+              "ramp(45, 40.5, 1.0)",
+              "ramp(45, 47.0, 2.0)",
               "ramp(45, 42.0, 1.0)",
               "ramp(45, 38.0, 1.0)",
               "ramp(45, 40.5, 1.0)",
@@ -1379,19 +1221,7 @@
               "ramp(45, 42.5, 1.2)",
               "ramp(45, 40.5, 1.0)",
               "ramp(45, 44.0, 1.4)",
-              "ramp(45, 40.5, 1.0)",
-              "ramp(45, 42.5, 1.2)",
-              "ramp(45, 45.5, 1.6)",
-              "ramp(45, 42.0, 1.0)",
-              "ramp(45, 38.0, 1.0)",
-              "ramp(45, 40.5, 1.0)",
-              "ramp(45, 42.5, 1.2)",
-              "ramp(45, 40.5, 1.0)",
-              "ramp(45, 44.0, 1.4)",
-              "ramp(45, 40.5, 1.0)",
-              "ramp(45, 42.5, 1.2)",
-              "ramp(45, 45.5, 1.6)",
-              "ramp(45, 47.0, 2.0)"
+              "ramp(45, 40.5, 1.0)"
             ]
           }
         ]
@@ -1405,200 +1235,184 @@
         ],
         "steps": [
           {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
             "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
-          },
-          {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
-          },
-          {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
-          },
-          {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
-          },
-          {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
-          },
-          {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
+            "duration": "random(1, 1440)"
           },
           {
             "value": "random(40, 42)",
             "duration": "random(30, 240)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "30",
+            "duration": "random(60, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "30",
+            "duration": "random(60, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "30",
+            "duration": "random(60, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "30",
+            "duration": "random(60, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "30",
+            "duration": "random(60, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
           }
         ],
         "tags": [
@@ -1637,6 +1451,8 @@
             },
             "type": "System.Double",
             "values": [
+              "ramp(45, 57.0, 1.5)",
+              "ramp(45, 78.0, 4.0)",
               "ramp(45, 72.0, 2.0)",
               "ramp(45, 60.0, 2.0)",
               "ramp(45, 57.0, 1.5)",
@@ -1679,13 +1495,7 @@
               "ramp(45, 68.0, 2.0)",
               "ramp(45, 72.0, 2.0)",
               "ramp(45, 60.0, 2.0)",
-              "ramp(45, 57.0, 1.5)",
-              "ramp(45, 62.0, 2.0)",
-              "ramp(45, 57.0, 1.5)",
-              "ramp(45, 66.0, 2.0)",
-              "ramp(45, 57.0, 1.5)",
-              "ramp(45, 68.0, 2.0)",
-              "ramp(45, 78.0, 4.0)"
+              "ramp(45, 57.0, 1.5)"
             ]
           }
         ]
@@ -1699,72 +1509,56 @@
         ],
         "steps": [
           {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
             "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
-          },
-          {
-            "value": "0",
-            "duration": "random(240, 420)"
-          },
-          {
-            "value": "10",
-            "duration": "random(15, 30)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "21",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "22",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "20",
-            "duration": "random(120, 300)"
-          },
-          {
-            "value": "30",
-            "duration": "random(60, 180)"
+            "duration": "random(1, 1440)"
           },
           {
             "value": "random(40, 42)",
             "duration": "random(180, 600)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "21",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "22",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
+          },
+          {
+            "value": "30",
+            "duration": "random(60, 180)"
+          },
+          {
+            "value": "0",
+            "duration": "random(240, 420)"
+          },
+          {
+            "value": "10",
+            "duration": "random(15, 30)"
+          },
+          {
+            "value": "20",
+            "duration": "random(120, 300)"
           }
         ],
         "tags": [
@@ -1803,6 +1597,8 @@
             },
             "type": "System.Double",
             "values": [
+              "ramp(45, 64.0, 1.5)",
+              "ramp(45, 86.0, 5.0)",
               "ramp(45, 78.0, 2.0)",
               "ramp(45, 68.0, 2.0)",
               "ramp(45, 64.0, 1.5)",
@@ -1813,13 +1609,7 @@
               "ramp(45, 75.0, 2.0)",
               "ramp(45, 78.0, 2.0)",
               "ramp(45, 68.0, 2.0)",
-              "ramp(45, 64.0, 1.5)",
-              "ramp(45, 70.0, 2.0)",
-              "ramp(45, 64.0, 1.5)",
-              "ramp(45, 73.0, 2.0)",
-              "ramp(45, 64.0, 1.5)",
-              "ramp(45, 75.0, 2.0)",
-              "ramp(45, 86.0, 5.0)"
+              "ramp(45, 64.0, 1.5)"
             ]
           }
         ]
@@ -1834,247 +1624,131 @@
         "steps": [
           {
             "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
-          },
-          {
-            "value": "0",
-            "duration": "random(9000, 11520)"
-          },
-          {
-            "value": "10",
-            "duration": "random(20, 45)"
+            "duration": "random(1, 308775)"
           },
           {
             "value": "30",
             "duration": "random(20, 60)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
+          },
+          {
+            "value": "0",
+            "duration": "random(9000, 11520)"
+          },
+          {
+            "value": "10",
+            "duration": "random(20, 45)"
           }
         ],
         "tags": [
@@ -2108,7 +1782,7 @@
             "type": "System.Double",
             "values": [
               "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
+              "flat(60, 76.0, 16.0)",
               "flat(60, 0.0, 0)",
               "flat(60, 70.0, 15.0)",
               "flat(60, 0.0, 0)",
@@ -2138,36 +1812,7 @@
               "flat(60, 0.0, 0)",
               "flat(60, 70.0, 15.0)",
               "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 70.0, 15.0)",
-              "flat(60, 76.0, 16.0)"
+              "flat(60, 70.0, 15.0)"
             ]
           }
         ]
@@ -2182,71 +1827,43 @@
         "steps": [
           {
             "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
-          },
-          {
-            "value": "0",
-            "duration": "random(7200, 10080)"
-          },
-          {
-            "value": "10",
-            "duration": "random(30, 90)"
+            "duration": "random(1, 69600)"
           },
           {
             "value": "30",
             "duration": "random(45, 120)"
+          },
+          {
+            "value": "0",
+            "duration": "random(7200, 10080)"
+          },
+          {
+            "value": "10",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "0",
+            "duration": "random(7200, 10080)"
+          },
+          {
+            "value": "10",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "0",
+            "duration": "random(7200, 10080)"
+          },
+          {
+            "value": "10",
+            "duration": "random(30, 90)"
+          },
+          {
+            "value": "0",
+            "duration": "random(7200, 10080)"
+          },
+          {
+            "value": "10",
+            "duration": "random(30, 90)"
           }
         ],
         "tags": [
@@ -2280,7 +1897,7 @@
             "type": "System.Double",
             "values": [
               "flat(60, 0.0, 0)",
-              "flat(60, 85.0, 14.0)",
+              "flat(60, 92.0, 8.0)",
               "flat(60, 0.0, 0)",
               "flat(60, 85.0, 14.0)",
               "flat(60, 0.0, 0)",
@@ -2288,14 +1905,7 @@
               "flat(60, 0.0, 0)",
               "flat(60, 85.0, 14.0)",
               "flat(60, 0.0, 0)",
-              "flat(60, 85.0, 14.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 85.0, 14.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 85.0, 14.0)",
-              "flat(60, 0.0, 0)",
-              "flat(60, 85.0, 14.0)",
-              "flat(60, 92.0, 8.0)"
+              "flat(60, 85.0, 14.0)"
             ]
           }
         ]
@@ -2310,135 +1920,75 @@
         "steps": [
           {
             "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
-          },
-          {
-            "value": "0",
-            "duration": "random(1200, 1560)"
-          },
-          {
-            "value": "20",
-            "duration": "random(3, 12)"
-          },
-          {
-            "value": "0",
-            "duration": "random(200, 400)"
-          },
-          {
-            "value": "10",
-            "duration": "random(50, 80)"
+            "duration": "random(1, 14020)"
           },
           {
             "value": "40",
             "duration": "random(60, 240)"
+          },
+          {
+            "value": "0",
+            "duration": "random(1200, 1560)"
+          },
+          {
+            "value": "20",
+            "duration": "random(3, 12)"
+          },
+          {
+            "value": "0",
+            "duration": "random(200, 400)"
+          },
+          {
+            "value": "10",
+            "duration": "random(50, 80)"
+          },
+          {
+            "value": "0",
+            "duration": "random(1200, 1560)"
+          },
+          {
+            "value": "20",
+            "duration": "random(3, 12)"
+          },
+          {
+            "value": "0",
+            "duration": "random(200, 400)"
+          },
+          {
+            "value": "10",
+            "duration": "random(50, 80)"
+          },
+          {
+            "value": "0",
+            "duration": "random(1200, 1560)"
+          },
+          {
+            "value": "20",
+            "duration": "random(3, 12)"
+          },
+          {
+            "value": "0",
+            "duration": "random(200, 400)"
+          },
+          {
+            "value": "10",
+            "duration": "random(50, 80)"
+          },
+          {
+            "value": "0",
+            "duration": "random(1200, 1560)"
+          },
+          {
+            "value": "20",
+            "duration": "random(3, 12)"
+          },
+          {
+            "value": "0",
+            "duration": "random(200, 400)"
+          },
+          {
+            "value": "10",
+            "duration": "random(50, 80)"
           }
         ],
         "tags": [
@@ -2472,55 +2022,31 @@
         "steps": [
           {
             "value": "0",
-            "duration": "random(300, 900)"
-          },
-          {
-            "value": "20",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(100, 300)"
-          },
-          {
-            "value": "10",
-            "duration": "random(60, 120)"
-          },
-          {
-            "value": "0",
-            "duration": "random(300, 900)"
-          },
-          {
-            "value": "20",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(100, 300)"
-          },
-          {
-            "value": "10",
-            "duration": "random(60, 120)"
-          },
-          {
-            "value": "0",
-            "duration": "random(300, 900)"
-          },
-          {
-            "value": "20",
-            "duration": "random(20, 60)"
-          },
-          {
-            "value": "0",
-            "duration": "random(100, 300)"
-          },
-          {
-            "value": "10",
-            "duration": "random(60, 120)"
+            "duration": "random(1, 2790)"
           },
           {
             "value": "40",
             "duration": "random(480, 1440)"
+          },
+          {
+            "value": "0",
+            "duration": "random(300, 900)"
+          },
+          {
+            "value": "20",
+            "duration": "random(20, 60)"
+          },
+          {
+            "value": "0",
+            "duration": "random(100, 300)"
+          },
+          {
+            "value": "10",
+            "duration": "random(60, 120)"
+          },
+          {
+            "value": "0",
+            "duration": "random(300, 900)"
           }
         ],
         "tags": [
